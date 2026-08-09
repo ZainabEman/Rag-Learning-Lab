@@ -1,0 +1,61 @@
+# RAG Learning Lab - dependencies
+#
+# Installed in stages, matching the roadmap. Sections beyond what I am
+# currently studying are commented out on purpose: a smaller environment is
+# faster to install and easier to debug.
+#
+#   pip install -r requirements.txt
+
+# --- Core: from-scratch implementations ------------------------------------
+numpy
+pandas
+matplotlib
+python-dotenv
+tiktoken
+
+# --- Foundations: document processing + chunking ---------------------------
+langchain
+langchain-community
+langchain-text-splitters
+pypdf
+beautifulsoup4
+
+# --- Embeddings + vector search --------------------------------------------
+sentence-transformers
+chromadb
+faiss-cpu
+
+# --- Notebooks (optional but useful for quick inspection) ------------------
+jupyter
+ipykernel
+
+# --- Model providers (uncomment the one actually used) ---------------------
+# langchain-openai
+# langchain-anthropic
+# langchain-huggingface
+
+# --- Advanced retrieval (section 07) ---------------------------------------
+# rank_bm25
+# scikit-learn
+
+# --- Agentic RAG (section 11) ----------------------------------------------
+# langgraph
+
+# --- GraphRAG (section 12) -------------------------------------------------
+# networkx
+# neo4j
+
+# --- Multimodal RAG (section 13) -------------------------------------------
+# torch
+# transformers
+# pillow
+# pymupdf
+
+# --- Evaluation (section 14) -----------------------------------------------
+# ragas
+# deepeval
+# datasets
+# pytest
+
+# --- Observability (section 15) --------------------------------------------
+# langsmith

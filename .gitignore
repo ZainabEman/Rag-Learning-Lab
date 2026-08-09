@@ -1,0 +1,106 @@
+# ---------------------------------------------------------------------------
+# Secrets - never commit these
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+secrets.*
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------------------------------------------------------------------------
+# Virtual environments
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# ---------------------------------------------------------------------------
+# Editors / OS
+# ---------------------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json.example
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# Notebooks
+# ---------------------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# Vector stores and generated indexes
+# ---------------------------------------------------------------------------
+.vectorstores/
+chroma/
+chroma_db/
+.chroma/
+*.sqlite3
+*.faiss
+*.index
+*.ann
+*.bin
+*.pkl
+*.npy
+*.npz
+
+# ---------------------------------------------------------------------------
+# Model / embedding caches
+# ---------------------------------------------------------------------------
+.cache/
+.hf_cache/
+models/
+*.pt
+*.safetensors
+
+# ---------------------------------------------------------------------------
+# Data - large corpora stay local.
+# Small committed test data goes in an experiment's data/ folder and is
+# re-allowed below.
+# ---------------------------------------------------------------------------
+/data/
+**/data/raw/
+**/data/downloads/
+*.pdf
+*.docx
+*.pptx
+*.zip
+*.tar.gz
+*.parquet
+
+# Small reproducible experiment inputs ARE tracked:
+!experiments/**/data/**
+!**/datasets/**
+
+# ---------------------------------------------------------------------------
+# Generated outputs (keep the written-up results, drop the noise)
+# ---------------------------------------------------------------------------
+*.log
+logs/
+tmp/
+scratch/
+outputs/
+!**/results/**
