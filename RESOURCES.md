@@ -11,7 +11,9 @@ by me as I encounter it, so I do not end up with links I never read.
 
 | Title | URL | Topic | Why it is useful |
 | --- | --- | --- | --- |
-| TODO - the RAG course I am currently taking | TODO | Foundations to retrieval | TODO |
+| LangChain playlist (the RAG course I am currently taking) | *TODO — paste the playlist URL* | LangChain components → RAG | Main source. Teaches the four RAG components (document loaders, text splitters, vector stores, retrievers) before assembling them into RAG. |
+| ↳ *RAG: why, what and how* (theory video) | *TODO — paste the video URL* | Foundations | Parametric knowledge, the three failure modes, fine-tuning, in-context learning, the four RAG stages. Notes in [01-foundations](01-foundations/). |
+| ↳ *Document Loaders* | *TODO — paste the video URL* | Document processing | The `Document` object, four core loaders, `DirectoryLoader`, `load()` vs `lazy_load()`. Notes in [02-document-processing/01-document-loading](02-document-processing/01-document-loading/). |
 
 ## Documentation
 

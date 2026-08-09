@@ -13,7 +13,9 @@ Reading list. Status legend:
 
 | Paper | Year | Topic | Link | Status | My notes |
 | --- | --- | --- | --- | --- | --- |
+| Language Models are Few-Shot Learners (GPT-3, Brown et al.) | 2020 | In-context learning, few-shot prompting | https://arxiv.org/abs/2005.14165 | `[ ] To read` | [01-foundations](01-foundations/01-what-is-rag/notes.md) |
 | Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al.) | 2020 | The original RAG paper | https://arxiv.org/abs/2005.11401 | `[ ] To read` | [01-foundations](01-foundations/01-what-is-rag/notes.md) |
+| LoRA: Low-Rank Adaptation of Large Language Models (Hu et al.) | 2021 | Parameter-efficient fine-tuning | https://arxiv.org/abs/2106.09685 | `[ ] To read` | [01-foundations](01-foundations/04-rag-vs-finetuning/notes.md) |
 | Dense Passage Retrieval for Open-Domain QA (Karpukhin et al.) | 2020 | Dense retrieval | https://arxiv.org/abs/2004.04906 | `[ ] To read` | [07-advanced-retrieval](07-advanced-retrieval/03-sparse-vs-dense/notes.md) |
 | ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction | 2020 | Late interaction | https://arxiv.org/abs/2004.12832 | `[ ] To read` | [07-advanced-retrieval](07-advanced-retrieval/11-colbert/notes.md) |
 | ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction | 2021 | Late interaction | https://arxiv.org/abs/2112.01488 | `[ ] To read` | [07-advanced-retrieval](07-advanced-retrieval/11-colbert/notes.md) |
@@ -29,6 +31,13 @@ Reading list. Status legend:
 | Learning Transferable Visual Models From Natural Language Supervision (CLIP) | 2021 | Multimodal | https://arxiv.org/abs/2103.00020 | `[ ] To read` | [13-multimodal-rag](13-multimodal-rag/03-clip/notes.md) |
 | RAGAS: Automated Evaluation of Retrieval Augmented Generation | 2023 | Evaluation | https://arxiv.org/abs/2309.15217 | `[ ] To read` | [14-rag-evaluation](14-rag-evaluation/16-ragas/notes.md) |
 | Retrieval-Augmented Generation for Large Language Models: A Survey | 2023 | Survey / orientation | https://arxiv.org/abs/2312.10997 | `[ ] To read` | - |
+
+## Priority right now
+
+The GPT-3 paper is the one to read first. In-context learning is the capability
+RAG depends on, and the course explicitly recommended reading it — the abstract
+alone carries the argument about fine-tuning's data cost. The original RAG paper
+is second.
 
 ## Reading notes
 

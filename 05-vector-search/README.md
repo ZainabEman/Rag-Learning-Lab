@@ -8,7 +8,7 @@ Storing vectors and finding nearest neighbours at speed.
 
 | # | Topic | What it covers | Status |
 | --- | --- | --- | --- |
-| 01 | [Vector Databases](01-vector-databases/) | What a vector store adds over a numpy array: persistence, filtering, indexing, updates, scaling. | `not started` |
+| 01 | [Vector Databases](01-vector-databases/) | What a vector store adds over a numpy array: persistence, filtering, indexing, updates, scaling. | `overview only` |
 | 02 | [Similarity Search](02-similarity-search/) | Brute-force search from scratch, then the same query through Chroma/FAISS; verifying the results match. | `not started` |
 | 03 | [Top-K](03-top-k/) | How k affects recall, precision, prompt size and cost; finding a sensible default for a corpus. | `not started` |
 | 04 | [Metadata Filtering](04-metadata-filtering/) | Pre-filter vs post-filter, and how filtering interacts with approximate indexes. | `not started` |

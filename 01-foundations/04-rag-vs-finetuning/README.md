@@ -1,6 +1,6 @@
 # RAG vs Fine-tuning
 
-> Section: [Foundations](../README.md) | Status: `not started`
+> Section: [Foundations](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ When to add knowledge at inference time vs bake behaviour into weights, and when
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

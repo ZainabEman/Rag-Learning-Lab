@@ -1,6 +1,6 @@
 # RAG Architecture
 
-> Section: [Foundations](../README.md) | Status: `not started`
+> Section: [Foundations](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ The two pipelines - offline ingestion (load, chunk, embed, index) and online que
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

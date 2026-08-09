@@ -4,6 +4,32 @@
 
 Splitting documents into retrievable units. The single highest-leverage knob in a basic RAG system.
 
+## Why chunking exists
+
+> Seeded from the RAG architecture lesson (indexing step 2). The dedicated
+> text-splitters material has not been studied yet.
+
+A loaded document is split into smaller, semantically meaningful pieces for two
+**independent** reasons — either one alone would force chunking:
+
+1. **Context length.** There is a hard limit on how many tokens an LLM will
+   accept in a prompt. A two-hour lecture transcript or a 300-page book cannot
+   be sent whole.
+2. **Retrieval quality.** Semantic search degrades on large documents. One
+   embedding for a long, multi-topic document is an average of everything in it,
+   so it matches every topic weakly and none precisely.
+
+The requirement that follows: chunks must break on **meaning**, not at arbitrary
+offsets. Ideally one chunk covers one topic — a cut through the middle of an
+explanation produces two chunks that each answer nothing.
+
+Splitters named so far: `RecursiveCharacterTextSplitter` (the common default),
+`SemanticChunker`, and format-aware splitters for HTML and Markdown.
+
+Note that this is *not* the same as the per-page or per-row split a document
+loader produces — that is the source's natural unit, not a semantic decision.
+See [02-document-processing/01-document-loading](../02-document-processing/01-document-loading/).
+
 ## Topics
 
 | # | Topic | What it covers | Status |

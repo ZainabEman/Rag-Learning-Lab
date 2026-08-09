@@ -1,6 +1,6 @@
 # Vector Databases
 
-> Section: [Vector Search](../README.md) | Status: `not started`
+> Section: [Vector Search](../README.md) | Status: `overview only`
 
 ## Scope
 

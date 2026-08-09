@@ -1,6 +1,6 @@
 # Semantic Retrieval
 
-> Section: [Retrieval](../README.md) | Status: `not started`
+> Section: [Retrieval](../README.md) | Status: `overview only`
 
 ## Scope
 

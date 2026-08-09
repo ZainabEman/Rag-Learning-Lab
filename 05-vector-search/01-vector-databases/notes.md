@@ -1,18 +1,44 @@
 # Vector Databases
 
-> Status: `not started` | Section: [Vector Search](../README.md)
+> Status: `overview only` — seeded from the RAG architecture lesson, where the
+> vector store appears as step 4 of indexing. The dedicated vector-store lesson
+> has not been studied yet.
+>
+> Section: [Vector Search](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+The storage layer of the external knowledge base. It holds, for every chunk,
+three things together:
 
-TODO
+| Stored | Why it must be there |
+| --- | --- |
+| The **embedding vector** | What the similarity search runs against |
+| The **original chunk text** | What eventually goes into the prompt |
+| The **metadata** | Citation, filtering, debugging |
+
+Storing the text alongside the vector is not an optimisation — it is required.
+An embedding cannot be reversed back into its text, so a store of vectors alone
+would be able to tell you *which* chunk matched and nothing about what it said.
 
 ## Why does it exist?
 
-<!-- What existed before this, and what was wrong with it? -->
+Once every chunk is a vector, the query-time question becomes "which of these
+vectors is nearest to the query vector?" — and that has to be answered fast,
+repeatedly, over a corpus that can be very large. A vector store is the
+component that makes that lookup practical, and it is what turns a pile of
+embeddings into a searchable knowledge base.
 
-TODO
+Options named so far:
+
+| Type | Examples |
+| --- | --- |
+| Local / embedded | FAISS, Chroma |
+| Cloud / managed | Pinecone, Weaviate, Milvus, Qdrant |
+
+Local stores are the right choice for learning and for privacy-sensitive work —
+nothing leaves the machine. What managed stores add (scaling, replication,
+operational concerns) is [10-vector-db-scaling](../../17-production-rag/10-vector-db-scaling/).
 
 ## Problem it solves
 

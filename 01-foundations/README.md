@@ -8,10 +8,10 @@ What RAG is, why it exists, and how the pieces fit together before any code.
 
 | # | Topic | What it covers | Status |
 | --- | --- | --- | --- |
-| 01 | [What is RAG](01-what-is-rag/) | Define retrieval-augmented generation precisely: retrieve, augment, generate - and what each stage is responsible for. | `not started` |
-| 02 | [Why RAG](02-why-rag/) | The failure modes RAG addresses: stale knowledge, hallucination, private data, citation requirements, cost of retraining. | `not started` |
-| 03 | [RAG Architecture](03-rag-architecture/) | The two pipelines - offline ingestion (load, chunk, embed, index) and online query (embed, retrieve, rerank, prompt, generate). | `not started` |
-| 04 | [RAG vs Fine-tuning](04-rag-vs-finetuning/) | When to add knowledge at inference time vs bake behaviour into weights, and when both are used together. | `not started` |
+| 01 | [What is RAG](01-what-is-rag/) | Define retrieval-augmented generation precisely: retrieve, augment, generate - and what each stage is responsible for. | `studied` |
+| 02 | [Why RAG](02-why-rag/) | The failure modes RAG addresses: stale knowledge, hallucination, private data, citation requirements, cost of retraining. | `studied` |
+| 03 | [RAG Architecture](03-rag-architecture/) | The two pipelines - offline ingestion (load, chunk, embed, index) and online query (embed, retrieve, rerank, prompt, generate). | `studied` |
+| 04 | [RAG vs Fine-tuning](04-rag-vs-finetuning/) | When to add knowledge at inference time vs bake behaviour into weights, and when both are used together. | `studied` |
 
 ## How to work through this section
 

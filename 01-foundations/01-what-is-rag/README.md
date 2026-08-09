@@ -1,6 +1,6 @@
 # What is RAG
 
-> Section: [Foundations](../README.md) | Status: `not started`
+> Section: [Foundations](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Define retrieval-augmented generation precisely: retrieve, augment, generate - a
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

@@ -1,6 +1,6 @@
 # What Are Embeddings
 
-> Section: [Embeddings](../README.md) | Status: `not started`
+> Section: [Embeddings](../README.md) | Status: `overview only`
 
 ## Scope
 

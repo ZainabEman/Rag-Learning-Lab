@@ -11,8 +11,8 @@ Per-topic tracking. A topic with nothing ticked is **not started**.
 
 Tick the parent box only when all four sub-boxes are ticked.
 
-**Total topics: 169** | Started: 0 | Completed: 0
-_Last updated: (update this when you edit the file)_
+**Total topics: 169** | Started: 5 | Completed: 0
+_Last updated: 2026-08-10 (after RAG theory + document loaders)_
 
 ---
 
@@ -21,33 +21,33 @@ _Last updated: (update this when you edit the file)_
 ### [01-foundations](01-foundations/)
 
 - [ ] [What is RAG](01-foundations/01-what-is-rag/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Why RAG](01-foundations/02-why-rag/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [RAG Architecture](01-foundations/03-rag-architecture/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [RAG vs Fine-tuning](01-foundations/04-rag-vs-finetuning/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 
 ### [02-document-processing](02-document-processing/)
 
 - [ ] [Document Loading](02-document-processing/01-document-loading/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Document Parsing](02-document-processing/02-document-parsing/)
   - [ ] Studied
   - [ ] Implemented

@@ -1,6 +1,6 @@
 # Metadata
 
-> Section: [Document Processing](../README.md) | Status: `not started`
+> Section: [Document Processing](../README.md) | Status: `overview only`
 
 ## Scope
 

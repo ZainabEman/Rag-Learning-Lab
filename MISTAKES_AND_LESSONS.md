@@ -14,6 +14,9 @@ correction gets appended underneath it.
 
 | Date | I thought | Actually | What corrected me |
 | --- | --- | --- | --- |
+| 2026-08-10 | A document loader returning "one document per page" was already doing chunking | Loading and chunking are separate steps. Per-page/per-row splitting is the source's natural unit; chunking is a deliberate later step driven by context limits and embedding quality | Noticing that a 23-page PDF gives 23 documents that *still* need splitting |
+| 2026-08-10 | RAG is a technique layered on top of LLMs | RAG depends on in-context learning, an emergent property of large models. Without it, injecting context into the prompt would do nothing | The progression few-shot prompting → RAG: same channel, different payload |
+| 2026-08-10 | Fine-tuning and RAG are competing answers to the same question | They answer different questions — behaviour vs knowledge. The hard asymmetry is deletion: RAG removes a document, fine-tuning cannot cleanly forget | Working through the "remove a course from the catalogue" case |
 | TODO | TODO | TODO | TODO |
 
 ## Mistakes in implementation
@@ -23,6 +26,7 @@ correction gets appended underneath it.
 
 | Date | Symptom | Cause | Fix |
 | --- | --- | --- | --- |
+| 2026-08-10 | `lazy_load()` demo showed the *same* peak memory as `load()` (8297 KB vs 8288 KB) | The generator wrapped an eager reader — the full list was already built inside the loader before the first `yield` | Made the CSV reader itself a generator (`yield` per row) and had the eager version call `list()` on it. Result: 8297 KB vs 44 KB |
 | TODO | TODO | TODO | TODO |
 
 ## Failed experiments
@@ -41,11 +45,32 @@ correction gets appended underneath it.
 
 <!-- The result was real but not what I expected. Often the most interesting. -->
 
-### TODO - <observation>
+### 2026-08-10 - Spelling defeated retrieval, and I did not notice at first
 
-- **Expected:**
-- **Observed:**
-- **Explanation (or open question):**
+- **Expected:** the query "how do we perform the **optimization** step in
+  gradient descent?" would match the chunk containing "the **optimisation**
+  step itself is simple" largely *because* of that word.
+- **Observed:** those two tokens contributed exactly nothing to the similarity
+  score. Retrieval still returned the right chunks, but only because
+  "gradient", "descent" and "step" happened to overlap.
+- **Explanation:** the stand-in embedding in
+  [01-foundations/03-rag-architecture/implementation.py](01-foundations/03-rag-architecture/implementation.py)
+  is bag-of-words, so US and UK spellings are unrelated tokens. A dense
+  embedding model would place them almost on top of each other. This is the
+  concrete argument for [04-embeddings](04-embeddings/) — found by accident,
+  not by reading.
+
+### 2026-08-10 - The winning chunk was malformed and still won
+
+- **Expected:** the top-ranked chunk would be a clean, self-contained passage.
+- **Observed:** chunk 3 begins "conditional on the other features" — a fragment
+  of the *previous* paragraph about multiple regression — and still scored
+  highest.
+- **Explanation:** fixed-size chunking cuts on word counts, not meaning.
+  Relevance and well-formedness are independent properties, and similarity
+  search only measures the first. Motivates [03-chunking](03-chunking/).
+
+### TODO - <observation>
 
 ## Lessons learned
 

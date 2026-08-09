@@ -1,6 +1,6 @@
 # Why RAG
 
-> Section: [Foundations](../README.md) | Status: `not started`
+> Section: [Foundations](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ The failure modes RAG addresses: stale knowledge, hallucination, private data, c
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

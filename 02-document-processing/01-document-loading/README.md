@@ -1,6 +1,6 @@
 # Document Loading
 
-> Section: [Document Processing](../README.md) | Status: `not started`
+> Section: [Document Processing](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Loading PDF, HTML, DOCX, Markdown, CSV and plain text into a common document rep
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 
