@@ -1,6 +1,6 @@
 # Semantic Retrieval
 
-> Section: [Retrieval](../README.md) | Status: `overview only`
+> Section: [Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ The baseline retriever end to end: embed query, search, return chunks with score
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

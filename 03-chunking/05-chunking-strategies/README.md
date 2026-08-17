@@ -1,6 +1,6 @@
 # Chunking Strategies
 
-> Section: [Chunking](../README.md) | Status: `not started`
+> Section: [Chunking](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Semantic, structure-aware, sentence-window and document-specific strategies comp
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

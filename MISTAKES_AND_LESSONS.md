@@ -17,6 +17,9 @@ correction gets appended underneath it.
 | 2026-08-10 | A document loader returning "one document per page" was already doing chunking | Loading and chunking are separate steps. Per-page/per-row splitting is the source's natural unit; chunking is a deliberate later step driven by context limits and embedding quality | Noticing that a 23-page PDF gives 23 documents that *still* need splitting |
 | 2026-08-10 | RAG is a technique layered on top of LLMs | RAG depends on in-context learning, an emergent property of large models. Without it, injecting context into the prompt would do nothing | The progression few-shot prompting → RAG: same channel, different payload |
 | 2026-08-10 | Fine-tuning and RAG are competing answers to the same question | They answer different questions — behaviour vs knowledge. The hard asymmetry is deletion: RAG removes a document, fine-tuning cannot cleanly forget | Working through the "remove a course from the catalogue" case |
+| 2026-08-16 | `CharacterTextSplitter` is the fixed-size splitter | Its default separator is `"\n\n"` — by default it is a *paragraph* splitter that merges up to `chunk_size`. Pure length splitting needs `separator=""` | Reading the constructor signature in the installed package |
+| 2026-08-16 | `chunk_size` guarantees a maximum chunk length | It is a merge budget. A piece already larger than `chunk_size` comes back oversized — measured: a 299-char chunk when 50 was requested, with no warning | Testing a paragraph with no blank lines in it |
+| 2026-08-16 | `from_language(PYTHON)` splits code on every `class` and `def` | Its separators are `'\nclass '`, `'\ndef '`, `'\n\tdef '` — line-anchored, so space-indented methods never match. On a normal PEP 8 class it behaves exactly like the generic splitter | Building a comparison that showed *identical* output at every chunk size, then working out why |
 | TODO | TODO | TODO | TODO |
 
 ## Mistakes in implementation
@@ -69,6 +72,22 @@ correction gets appended underneath it.
 - **Explanation:** fixed-size chunking cuts on word counts, not meaning.
   Relevance and well-formedness are independent properties, and similarity
   search only measures the first. Motivates [03-chunking](03-chunking/).
+
+### 2026-08-16 - I claimed the recursive splitter never cuts words. It does.
+
+- **Expected:** having watched `RecursiveCharacterTextSplitter` keep every word
+  intact at `chunk_size=10` on the worked example, I wrote in my notes that it
+  "never cut inside a word".
+- **Observed:** the chunk-size sweep in
+  [03-chunk-size/implementation.py](03-chunking/03-chunk-size/implementation.py)
+  reported **7 mid-word cuts** at `chunk_size=10` on a different text.
+- **Explanation:** every word in the first example happened to be ≤ 10
+  characters. Words like "exploration" (11) and "discoveries." (12) cannot fit
+  in the budget at all, so the separator list falls through to `""` and cuts
+  them. The real property is "never cuts a word it could have avoided cutting".
+- **Lesson:** one example is not a guarantee. I generalised from a sample that
+  happened to be favourable, and only caught it because the sweep measured
+  something the example could not show.
 
 ### TODO - <observation>
 

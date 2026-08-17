@@ -8,9 +8,9 @@ Turning a query into a set of context chunks that are actually worth putting in 
 
 | # | Topic | What it covers | Status |
 | --- | --- | --- | --- |
-| 01 | [Semantic Retrieval](01-semantic-retrieval/) | The baseline retriever end to end: embed query, search, return chunks with scores and sources. | `overview only` |
-| 02 | [MMR (Maximal Marginal Relevance)](02-mmr/) | Trading relevance against diversity to stop the top-k being five copies of the same paragraph. | `not started` |
-| 03 | [Contextual Compression](03-contextual-compression/) | Filtering or shortening retrieved chunks against the query before they reach the prompt. | `not started` |
+| 01 | [Semantic Retrieval](01-semantic-retrieval/) | The baseline retriever end to end: embed query, search, return chunks with scores and sources. | `studied` |
+| 02 | [MMR (Maximal Marginal Relevance)](02-mmr/) | Trading relevance against diversity to stop the top-k being five copies of the same paragraph. | `studied` |
+| 03 | [Contextual Compression](03-contextual-compression/) | Filtering or shortening retrieved chunks against the query before they reach the prompt. | `studied` |
 | 04 | [Reranking Basics](04-reranking-basics/) | Why a second-stage scorer beats first-stage similarity, and the retrieve-many/rerank-few pattern. | `not started` |
 
 ## How to work through this section

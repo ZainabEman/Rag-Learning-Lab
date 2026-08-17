@@ -1,80 +1,75 @@
 # Contextual Compression
 
-> Status: `not started` | Section: [Retrieval](../README.md)
+> Status: `studied` | Section: [Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+A retriever that **trims retrieved documents after retrieval**, keeping only the
+parts relevant to the query.
 
-TODO
+## Why is it used?
 
-## Why does it exist?
+A retrieved chunk is often only partly relevant. Example - one stored document:
 
-<!-- What existed before this, and what was wrong with it? -->
+```
+The Grand Canyon is a famous natural site.
+Photosynthesis is how plants convert light into energy.
+Many tourists visit every year.
+```
 
-TODO
+Query: *"What is photosynthesis?"* The retriever correctly returns this document
+- but two of its three sentences are noise.
 
-## Problem it solves
-
-TODO
+**Why would a document look like that?** Because chunking is not perfect. A text
+splitter has no full control over where it cuts, so a chunk can end up spanning
+the end of one topic and the start of another.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Two components:
 
-TODO
+1. A **base retriever** (e.g. plain similarity search) fetches N documents.
+2. A **compressor** - usually an LLM - receives each document plus the query and
+   strips out everything irrelevant.
 
-## Architecture
+```mermaid
+flowchart LR
+    Q[Query] --> BR[Base retriever]
+    BR --> D["D1, D2<br/>(full documents)"]
+    D --> C["Compressor (LLM)"]
+    Q --> C
+    C --> R["D1', D2'<br/>(only relevant lines)"]
+```
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+## Simple example
 
-TODO
+```python
+from langchain.retrievers import ContextualCompressionRetriever
+from langchain.retrievers.document_compressors import LLMChainExtractor
 
-## Important concepts
+compressor = LLMChainExtractor.from_llm(llm)
 
-TODO
+retriever = ContextualCompressionRetriever(
+    base_compressor=compressor,
+    base_retriever=vector_store.as_retriever(search_kwargs={"k": 3}),
+)
 
-## Mathematical intuition
+retriever.invoke("What is photosynthesis?")
+```
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+Result: paragraph-length documents come back as single relevant sentences. The
+Grand Canyon and basketball content is gone.
 
-TODO
+## Important points
 
-## Implementation details
+- **It costs an LLM call per retrieved document.** Not free, in latency or money.
+- Use it when documents are long and mix topics, when you need to reduce context
+  length, or when answer accuracy needs improving.
+- It compresses *after* retrieval - it cannot recover a document that retrieval
+  missed.
 
-<!-- Gotchas found while writing implementation.py. -->
+## Related
 
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-semantic-retrieval](../01-semantic-retrieval/)
+- [03-chunking](../../03-chunking/) - better chunking reduces the need for this
+- [09-context-engineering/02-context-compression](../../09-context-engineering/02-context-compression/)

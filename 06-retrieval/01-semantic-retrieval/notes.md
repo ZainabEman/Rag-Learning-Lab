@@ -1,105 +1,88 @@
 # Semantic Retrieval
 
-> Status: `overview only` — seeded from the RAG architecture lesson, where
-> retrieval is stage 2 of the pipeline. The dedicated retrievers lesson has not
-> been studied yet.
->
-> Section: [Retrieval](../README.md)
+> Status: `studied` | Section: [Retrieval](../README.md)
 
 ## What is it?
 
-> Retrieval is the real-time process of finding the most relevant pieces of
-> information from a pre-built index, based on the user's question.
+A **retriever** is a component that takes a user query and returns relevant
+`Document` objects from a data source.
 
-The useful phrasing: *"of all the knowledge I have, which 3–5 chunks are most
-helpful for answering this query?"*
+```
+query (string)  ->  [ retriever ]  ->  list[Document]
+```
 
-Inside the retriever, four things happen:
+Think of it as a search engine sitting in front of your data.
 
-| Step | What happens | Detail that matters |
-| --- | --- | --- |
-| 1 | Embed the query | Must use **exactly** the embedding model that indexed the chunks — same model, same dimension |
-| 2 | Search the vector store | Find the vectors closest to the query vector |
-| 3 | Rank the candidates | Cosine similarity in the simple case; a reranking model in the advanced case |
-| 4 | Fetch the chunk text | The text of the top-ranked chunks *is* the context |
+## Why is it used?
 
-## Why does it exist?
+A vector store can already do `similarity_search`, so why wrap it?
 
-Because the whole corpus cannot go into the prompt. Retrieval is the filter that
-turns an arbitrarily large knowledge base into a few hundred tokens of relevant
-evidence, and it is the stage that decides the ceiling on answer quality —
-stages 3 and 4 can only work with what it hands over.
+Two reasons:
 
-Concretely: a two-hour lecture transcript is indexed, and the user asks about
-the optimisation step in gradient descent. Retrieval's job is to return the two
-passages where gradient descent is actually discussed and to leave out the ones
-about OLS and multiple linear regression — rather than sending the entire
-transcript.
+1. **Retrievers are runnables.** They have `.invoke()`, so they plug directly
+   into LCEL chains alongside prompts and models.
+2. **A vector store only knows one search strategy.** Retrievers let you swap in
+   smarter strategies - MMR, multi-query, compression - without changing the
+   store.
 
-Techniques named as alternatives to plain similarity search, not yet studied:
-[MMR](../02-mmr/) and [contextual compression](../03-contextual-compression/).
-
-## Problem it solves
-
-TODO
+For plain similarity search the two are equivalent. The value shows up when the
+strategy changes.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Retrievers are categorised two ways:
 
-TODO
+**By data source**
 
-## Architecture
+| Retriever | Source |
+| --- | --- |
+| `WikipediaRetriever` | The Wikipedia API |
+| `VectorStoreRetriever` | A vector store (the most common) |
+| `ArxivRetriever` | Research papers on arXiv |
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+**By search strategy**
 
-TODO
+| Retriever | Strategy |
+| --- | --- |
+| Vector store retriever | Plain semantic similarity |
+| [MMR](../02-mmr/) | Relevant **and** diverse |
+| [Multi-query](../../08-query-transformation/03-multi-query-retrieval/) | Generate several queries from one |
+| [Contextual compression](../03-contextual-compression/) | Trim retrieved text to what matters |
 
-## Important concepts
+## Simple example
 
-TODO
+```python
+retriever = vector_store.as_retriever(search_kwargs={"k": 2})
+results = retriever.invoke("What is Chroma used for?")
+```
 
-## Mathematical intuition
+`WikipediaRetriever` works the same way:
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+```python
+from langchain_community.retrievers import WikipediaRetriever
 
-TODO
+retriever = WikipediaRetriever(top_k_results=2, lang="en")
+docs = retriever.invoke("geopolitical history of India and Pakistan")
+```
 
-## Implementation details
+## Important points
 
-<!-- Gotchas found while writing implementation.py. -->
+- Input is always a query string; output is always `list[Document]`.
+- **A retriever is not a document loader.** `WikipediaRetriever` does not fetch
+  all of Wikipedia - it searches and decides which articles are relevant. The
+  intelligence in between is what makes it a retriever.
+- `WikipediaRetriever` matches on **keywords** internally, not semantics.
+- Retrievers are runnables, so `.invoke()` works and they compose into chains.
+- LangChain ships 20-30+ retrievers. Learn the interface, then look up the one a
+  project needs.
 
-TODO
+## Why so many retrievers exist
 
-## What I initially misunderstood
+A simple RAG system often retrieves poorly. The usual way to improve it is to
+swap the retriever for a more advanced one. "Advanced RAG" is, in large part,
+this list of retrievers.
 
-<!-- Be specific and honest. This section is the most valuable one later. -->
+## Related
 
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [02-mmr](../02-mmr/) · [03-contextual-compression](../03-contextual-compression/)
+- [05-vector-search/01-vector-databases](../../05-vector-search/01-vector-databases/)

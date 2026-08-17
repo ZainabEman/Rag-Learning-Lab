@@ -1,6 +1,6 @@
 # Chunk Size
 
-> Section: [Chunking](../README.md) | Status: `not started`
+> Section: [Chunking](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ The trade-off between retrieval precision (small chunks) and context sufficiency
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

@@ -1,6 +1,6 @@
 # Similarity Search
 
-> Section: [Vector Search](../README.md) | Status: `not started`
+> Section: [Vector Search](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Brute-force search from scratch, then the same query through Chroma/FAISS; verif
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

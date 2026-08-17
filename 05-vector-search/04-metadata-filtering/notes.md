@@ -1,80 +1,43 @@
 # Metadata Filtering
 
-> Status: `not started` | Section: [Vector Search](../README.md)
+> Status: `studied` | Section: [Vector Search](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Restricting a vector-store search to documents whose metadata matches a
+condition - so the semantic search only ever considers a subset.
 
-TODO
+## Why is it used?
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Some constraints are exact, not semantic. "Only players from Chennai Super
+Kings", "only documents from 2024", "only files this user is allowed to see".
+Embeddings are the wrong tool for those; metadata is the right one.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Metadata is attached when the document is created and stored next to the vector.
+At query time a filter is applied against that metadata.
 
-TODO
+## Simple example
 
-## Architecture
+```python
+store.similarity_search(
+    query="",
+    filter={"team": "Chennai Super Kings"},
+)
+```
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+With five cricket-player documents, this returns exactly the two whose metadata
+says Chennai Super Kings - MS Dhoni and Ravindra Jadeja. Note the query can be
+empty when the filter alone is doing the work.
 
-TODO
+## Important points
 
-## Important concepts
+- Metadata must be set **at ingestion**. Adding it later means re-indexing.
+- This is the mechanism behind access control in a real system - permissions
+  live in metadata, not in the prompt.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-vector-databases](../01-vector-databases/)
+- [02-document-processing/03-metadata](../../02-document-processing/03-metadata/) - where metadata comes from

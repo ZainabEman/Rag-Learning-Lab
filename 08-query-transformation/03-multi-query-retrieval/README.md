@@ -1,6 +1,6 @@
 # Multi-Query Retrieval
 
-> Section: [Query Transformation](../README.md) | Status: `not started`
+> Section: [Query Transformation](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Generating several query variants and merging their result sets.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

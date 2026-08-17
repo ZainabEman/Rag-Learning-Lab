@@ -1,106 +1,106 @@
 # Vector Databases
 
-> Status: `overview only` — seeded from the RAG architecture lesson, where the
-> vector store appears as step 4 of indexing. The dedicated vector-store lesson
-> has not been studied yet.
->
-> Section: [Vector Search](../README.md)
+> Status: `studied` | Section: [Vector Search](../README.md)
 
 ## What is it?
 
-The storage layer of the external knowledge base. It holds, for every chunk,
-three things together:
+A system built to **store vectors and retrieve them by similarity**.
 
-| Stored | Why it must be there |
-| --- | --- |
-| The **embedding vector** | What the similarity search runs against |
-| The **original chunk text** | What eventually goes into the prompt |
-| The **metadata** | Citation, filtering, debugging |
+Once text is embedded, the query-time question becomes "which stored vector is
+closest to this one?" Relational databases (MySQL, Oracle) cannot answer that -
+they can store the numbers, but they have no notion of similarity between rows.
+That gap is the reason a separate kind of store exists.
 
-Storing the text alongside the vector is not an optimisation — it is required.
-An embedding cannot be reversed back into its text, so a store of vectors alone
-would be able to tell you *which* chunk matched and nothing about what it said.
+## Why is it used?
 
-## Why does it exist?
+The motivating example: a movie catalogue site that wants a recommender.
 
-Once every chunk is a vector, the query-time question becomes "which of these
-vectors is nearest to the query vector?" — and that has to be answered fast,
-repeatedly, over a corpus that can be very large. A vector store is the
-component that makes that lookup practical, and it is what turns a pile of
-embeddings into a searchable knowledge base.
+| Approach | How it works | Why it fails |
+| --- | --- | --- |
+| Keyword matching | Compare director, actor, genre, release year | *My Name Is Khan* -> *Kabhi Alvida Naa Kehna* scores high (same director, same lead actor, similar era) but the stories are unrelated. And *Taare Zameen Par* / *A Beautiful Mind* are genuinely similar in theme yet share **no** keywords, so they can never be matched. |
+| Plot embeddings | Embed each movie's plot, compare vectors | Compares what the film is actually *about* |
 
-Options named so far:
+Switching to embeddings then creates three new engineering problems, and a
+vector store is the thing that solves all three:
 
-| Type | Examples |
-| --- | --- |
-| Local / embedded | FAISS, Chroma |
-| Cloud / managed | Pinecone, Weaviate, Milvus, Qdrant |
-
-Local stores are the right choice for learning and for privacy-sensitive work —
-nothing leaves the machine. What managed stores add (scaling, replication,
-operational concerns) is [10-vector-db-scaling](../../17-production-rag/10-vector-db-scaling/).
-
-## Problem it solves
-
-TODO
+1. **Generating** embeddings for a large catalogue.
+2. **Storing** them somewhere that understands similarity.
+3. **Searching** them fast - comparing one query against a million vectors
+   one-by-one is far too slow.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Four core features:
 
-TODO
+| Feature | What it gives you |
+| --- | --- |
+| **Storage** | Vectors + their metadata, either in memory (fast, lost on exit) or on disk (persistent) |
+| **Similarity search** | Compare a query vector against stored vectors, return the closest |
+| **Indexing** | Data structures that make that search fast instead of linear - see [05-vector-indexing](../05-vector-indexing/) |
+| **CRUD** | Add, read, update and delete vectors, like any database |
 
-## Architecture
+## Vector store vs vector database
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+These terms get used interchangeably, but there is a real distinction:
 
-TODO
+```
+vector store  +  database-like features  =  vector database
+```
 
-## Important concepts
+- **Vector store** - a lightweight library that stores vectors and does
+  similarity search. Good for prototyping. Example: **FAISS** (from Meta).
+- **Vector database** - all of that, plus distributed architecture, backup and
+  restore, ACID-style guarantees, concurrency control, authentication.
+  Examples: **Milvus, Qdrant, Weaviate, Pinecone**.
 
-TODO
+Every vector database is a vector store; the reverse is not true.
 
-## Mathematical intuition
+**Chroma** sits between the two - lightweight enough for local development, but
+with some database features. It stores data as a SQLite file on disk.
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+Chroma's hierarchy: `tenant -> database -> collection -> document`.
+A *collection* is the equivalent of a table; a *document* holds an embedding
+plus its metadata.
 
-TODO
+## Simple example
 
-## Implementation details
+LangChain wraps every vector store behind the **same method signatures**, so
+swapping FAISS for Pinecone later means changing the constructor, not the code
+around it.
 
-<!-- Gotchas found while writing implementation.py. -->
+```python
+from langchain_chroma import Chroma
+from langchain_openai import OpenAIEmbeddings
 
-TODO
+store = Chroma(
+    embedding_function=OpenAIEmbeddings(),
+    persist_directory="my_chroma_db",
+    collection_name="sample",
+)
 
-## What I initially misunderstood
+store.add_documents(docs)              # returns auto-generated ids
+store.get(include=["embeddings", "documents", "metadatas"])
+store.update_document(document_id=some_id, document=new_doc)
+store.delete(ids=[some_id])
+```
 
-<!-- Be specific and honest. This section is the most valuable one later. -->
+## Important points
 
-TODO
+- Store the **metadata alongside the vector** - it is what makes filtering and
+  citation possible later.
+- In-memory vs on-disk is a real choice: in-memory disappears when the process
+  exits.
+- Each added document gets a unique id (auto-generated, or supply your own).
+  Updates and deletes work through that id.
+- The common LangChain interface (`from_documents`, `add_documents`,
+  `similarity_search`) is the reason vector stores are swappable.
 
-## What I learned
+## Related
 
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
+- [02-similarity-search](../02-similarity-search/) · [04-metadata-filtering](../04-metadata-filtering/) · [05-vector-indexing](../05-vector-indexing/)
+- [06-retrieval/01-semantic-retrieval](../../06-retrieval/01-semantic-retrieval/)
 
 ## Questions I still have
 
-- TODO
+- When is Chroma no longer enough, in practice?
+- How much does index choice matter compared to embedding-model choice?

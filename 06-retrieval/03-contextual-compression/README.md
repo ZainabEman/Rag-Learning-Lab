@@ -1,6 +1,6 @@
 # Contextual Compression
 
-> Section: [Retrieval](../README.md) | Status: `not started`
+> Section: [Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Filtering or shortening retrieved chunks against the query before they reach the
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

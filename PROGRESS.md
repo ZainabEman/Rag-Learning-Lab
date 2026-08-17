@@ -11,8 +11,8 @@ Per-topic tracking. A topic with nothing ticked is **not started**.
 
 Tick the parent box only when all four sub-boxes are ticked.
 
-**Total topics: 169** | Started: 5 | Completed: 0
-_Last updated: 2026-08-10 (after RAG theory + document loaders)_
+**Total topics: 169** | Started: 18 | Completed: 0
+_Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
 
 ---
 
@@ -67,30 +67,30 @@ _Last updated: 2026-08-10 (after RAG theory + document loaders)_
 ### [03-chunking](03-chunking/)
 
 - [ ] [Fixed-Size Chunking](03-chunking/01-fixed-size-chunking/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Recursive Chunking](03-chunking/02-recursive-chunking/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Chunk Size](03-chunking/03-chunk-size/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Chunk Overlap](03-chunking/04-chunk-overlap/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Chunking Strategies](03-chunking/05-chunking-strategies/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 
 ### [04-embeddings](04-embeddings/)
 
@@ -125,48 +125,48 @@ _Last updated: 2026-08-10 (after RAG theory + document loaders)_
 ### [05-vector-search](05-vector-search/)
 
 - [ ] [Vector Databases](05-vector-search/01-vector-databases/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Similarity Search](05-vector-search/02-similarity-search/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Top-K](05-vector-search/03-top-k/)
   - [ ] Studied
   - [ ] Implemented
   - [ ] Experimented
   - [ ] Documented
 - [ ] [Metadata Filtering](05-vector-search/04-metadata-filtering/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Vector Indexing](05-vector-search/05-vector-indexing/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 
 ### [06-retrieval](06-retrieval/)
 
 - [ ] [Semantic Retrieval](06-retrieval/01-semantic-retrieval/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [MMR (Maximal Marginal Relevance)](06-retrieval/02-mmr/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Contextual Compression](06-retrieval/03-contextual-compression/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Reranking Basics](06-retrieval/04-reranking-basics/)
   - [ ] Studied
   - [ ] Implemented
@@ -253,10 +253,10 @@ _Last updated: 2026-08-10 (after RAG theory + document loaders)_
   - [ ] Experimented
   - [ ] Documented
 - [ ] [Multi-Query Retrieval](08-query-transformation/03-multi-query-retrieval/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Query Decomposition](08-query-transformation/04-query-decomposition/)
   - [ ] Studied
   - [ ] Implemented

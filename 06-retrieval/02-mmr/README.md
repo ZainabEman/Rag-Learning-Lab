@@ -1,6 +1,6 @@
 # MMR (Maximal Marginal Relevance)
 
-> Section: [Retrieval](../README.md) | Status: `not started`
+> Section: [Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Trading relevance against diversity to stop the top-k being five copies of the s
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

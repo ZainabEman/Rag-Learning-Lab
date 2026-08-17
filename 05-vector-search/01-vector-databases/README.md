@@ -1,6 +1,6 @@
 # Vector Databases
 
-> Section: [Vector Search](../README.md) | Status: `overview only`
+> Section: [Vector Search](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ What a vector store adds over a numpy array: persistence, filtering, indexing, u
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

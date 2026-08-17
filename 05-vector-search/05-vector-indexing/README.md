@@ -1,6 +1,6 @@
 # Vector Indexing
 
-> Section: [Vector Search](../README.md) | Status: `not started`
+> Section: [Vector Search](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Flat vs approximate indexes: what an index build actually does and what it costs
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

@@ -1,80 +1,49 @@
 # Vector Indexing
 
-> Status: `not started` | Section: [Vector Search](../README.md)
+> Status: `studied` | Section: [Vector Search](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+A data structure that makes similarity search fast, by avoiding a comparison
+against every stored vector.
 
-TODO
+## Why is it used?
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Brute-force search is `O(n)`. With 1,000,000 stored vectors, answering one query
+means 1,000,000 similarity computations plus a sort. That is far too slow for a
+live application.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+The simplest technique is **clustering**:
 
-TODO
+```mermaid
+flowchart LR
+    A["1M vectors"] --> B["Cluster into 10 groups<br/>~100k vectors each"]
+    B --> C["Compute a centroid<br/>per cluster"]
+    D[Query vector] --> E["Compare against<br/>10 centroids only"]
+    C --> E
+    E --> F["Pick the nearest cluster"]
+    F --> G["Compare against the<br/>~100k vectors inside it"]
+    G --> H[Answer]
+```
 
-## Architecture
+Cost drops from **1,000,000** comparisons to **100,010** - a 10x reduction, for
+roughly the same answer.
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+Production systems use more sophisticated variants, the best known being
+**Approximate Nearest Neighbour (ANN)** search.
 
-TODO
+## Important points
 
-## Important concepts
+- Indexing trades **exactness for speed**. The nearest vector might sit in a
+  cluster you skipped, so the result is *approximate*.
+- That trade is almost always worth it - the accuracy loss is small, the speed
+  gain is large.
+- This is the same idea as an index in a relational database: precompute
+  structure so reads get cheaper.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-vector-databases](../01-vector-databases/) - indexing is one of its four features
+- [07-advanced-retrieval/06-ann](../../07-advanced-retrieval/06-ann/) · [07-hnsw](../../07-advanced-retrieval/07-hnsw/) - the deeper treatment, not yet studied

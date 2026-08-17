@@ -1,6 +1,6 @@
 # Chunk Overlap
 
-> Section: [Chunking](../README.md) | Status: `not started`
+> Section: [Chunking](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Why overlap exists, what it costs in storage and duplication, and how much is ac
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

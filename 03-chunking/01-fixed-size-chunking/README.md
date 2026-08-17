@@ -1,6 +1,6 @@
 # Fixed-Size Chunking
 
-> Section: [Chunking](../README.md) | Status: `not started`
+> Section: [Chunking](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Character and token based splitting; why it is the baseline and where it breaks 
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

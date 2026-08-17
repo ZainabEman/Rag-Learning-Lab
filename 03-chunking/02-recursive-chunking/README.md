@@ -1,6 +1,6 @@
 # Recursive Chunking
 
-> Section: [Chunking](../README.md) | Status: `not started`
+> Section: [Chunking](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Splitting on a hierarchy of separators so paragraphs and sentences survive where
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

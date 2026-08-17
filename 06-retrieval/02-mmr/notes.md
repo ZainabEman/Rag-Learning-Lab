@@ -1,80 +1,66 @@
 # MMR (Maximal Marginal Relevance)
 
-> Status: `not started` | Section: [Retrieval](../README.md)
+> Status: `studied` | Section: [Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+A retrieval strategy that picks results which are relevant to the query **and
+different from each other**.
 
-TODO
+## Why is it used?
 
-## Why does it exist?
+Plain similarity search returns the top-k most similar documents - and those are
+often near-duplicates of one another.
 
-<!-- What existed before this, and what was wrong with it? -->
+Example. A store holds five documents about climate change. Query: *"what are
+the adverse effects of climate change?"* Plain similarity returns:
 
-TODO
+| # | Document | Problem |
+| --- | --- | --- |
+| 1 | Glaciers melting in the Arctic | fine |
+| 2 | Arctic glaciers melting at an alarming rate | **says the same thing as #1** |
+| 3 | Deforestation | fine |
 
-## Problem it solves
+Two of the three results carry the same information. Asking for 3 documents and
+getting 2 distinct facts is wasted budget.
 
-TODO
+What you actually want: glaciers, wildfires, coastal flooding - three different
+perspectives.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+MMR builds the result set greedily:
 
-TODO
+1. Pick the **most relevant** document first.
+2. For each next pick, choose a document that is relevant **but dissimilar to
+   what has already been picked**.
+3. Repeat until `k` documents are selected.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```python
+retriever = vector_store.as_retriever(
+    search_type="mmr",
+    search_kwargs={"k": 3, "lambda_mult": 0.5},
+)
+```
 
-TODO
+`lambda_mult` runs from 0 to 1 and controls the balance:
 
-## Important concepts
+| Value | Behaviour |
+| --- | --- |
+| `1.0` | Pure relevance - behaves exactly like normal similarity search |
+| `0.5` | Balanced (a reasonable default) |
+| `0.0` | Maximum diversity |
 
-TODO
+## Important points
 
-## Mathematical intuition
+- MMR does not make results *more relevant* - it makes the set *less redundant*.
+- The trade-off is direct: pushing diversity up means accepting slightly less
+  relevant documents.
+- Useful whenever the corpus contains many documents saying similar things.
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+## Related
 
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-semantic-retrieval](../01-semantic-retrieval/)
+- [09-context-engineering/03-context-deduplication](../../09-context-engineering/03-context-deduplication/) - the same problem, later in the pipeline

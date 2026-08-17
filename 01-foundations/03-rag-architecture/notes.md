@@ -185,6 +185,97 @@ response.
 Note what the model is doing here: it is **reading**, not recalling. The heavy
 lifting was done by stages 1 and 2.
 
+## Worked end-to-end build: "YouTube Chat"
+
+Building a real RAG system over a YouTube video transcript, so you can ask
+questions about a 2-hour podcast without watching it. Same four stages.
+
+**Indexing**
+
+```python
+# 1. ingest - fetch the transcript by video id (NOT the full URL)
+from youtube_transcript_api import YouTubeTranscriptApi
+raw = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
+transcript = " ".join(chunk["text"] for chunk in raw)
+
+# 2. chunk
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+chunks = splitter.create_documents([transcript])
+
+# 3 + 4. embed and store
+vector_store = FAISS.from_documents(chunks, OpenAIEmbeddings())
+```
+
+**Retrieval**
+
+```python
+retriever = vector_store.as_retriever(search_type="similarity",
+                                      search_kwargs={"k": 4})
+```
+
+**Augmentation + generation**
+
+```python
+prompt = PromptTemplate(
+    template="""You are a helpful assistant.
+Answer ONLY from the provided transcript context.
+If the context is insufficient, just say you don't know.
+
+{context}
+Question: {question}""",
+    input_variables=["context", "question"],
+)
+```
+
+### Wiring it into one chain
+
+Done manually, each stage has to be invoked separately. An LCEL chain makes one
+`.invoke()` run the whole pipeline. The structure has a branch, because the
+prompt needs **two** inputs:
+
+```mermaid
+flowchart LR
+    Q([question]) --> P1["retriever → format_docs"]
+    Q --> P2["passthrough"]
+    P1 -->|context| PR[prompt]
+    P2 -->|question| PR
+    PR --> LLM --> PA[parser] --> A([answer])
+```
+
+- `context` needs work: question → retriever → `list[Document]` → joined string.
+- `question` passes straight through.
+
+```python
+def format_docs(docs):
+    return "\n\n".join(d.page_content for d in docs)
+
+parallel_chain = RunnableParallel({
+    "context": retriever | RunnableLambda(format_docs),
+    "question": RunnablePassthrough(),
+})
+
+main_chain = parallel_chain | prompt | llm | StrOutputParser()
+main_chain.invoke("Can you summarize the video?")
+```
+
+Two details worth remembering:
+
+- `format_docs` must be wrapped in `RunnableLambda` to become part of a chain -
+  a plain function is not a runnable.
+- The transcript API returns timestamped fragments, so they must be joined into
+  one string before splitting.
+
+### Where a simple RAG system gets improved
+
+Listed as directions, not yet studied:
+
+| Area | Improvement |
+| --- | --- |
+| UI | Streamlit app or a Chrome plugin instead of a notebook |
+| Evaluation | RAGAS (faithfulness, answer relevancy, context precision/recall); LangSmith for tracing |
+| Indexing | Fix auto-generated transcript errors, translate non-English transcripts, semantic chunking, cloud vector store |
+| Retrieval | Query rewriting, multi-query generation, domain-aware routing |
+
 ## Architecture
 
 Where the components from the earlier lessons fit:

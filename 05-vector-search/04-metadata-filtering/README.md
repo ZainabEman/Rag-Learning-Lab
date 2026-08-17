@@ -1,6 +1,6 @@
 # Metadata Filtering
 
-> Section: [Vector Search](../README.md) | Status: `not started`
+> Section: [Vector Search](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Pre-filter vs post-filter, and how filtering interacts with approximate indexes.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 
