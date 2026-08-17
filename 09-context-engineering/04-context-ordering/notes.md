@@ -1,80 +1,48 @@
 # Context Ordering
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Deciding **where in the prompt** each retrieved chunk goes.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Models do not attend uniformly across a long prompt. The same chunks, reordered,
+produce different answers — so ordering is a free quality lever that costs no
+extra tokens or calls.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Because of the [lost-in-the-middle](../05-lost-in-the-middle/) effect, the
+standard trick is **"reordering"**: put the most relevant chunks at the
+beginning *and* the end, and bury the weakest in the middle.
 
-TODO
+```
+relevance rank:  1  2  3  4  5
+prompt order  :  1  3  5  4  2
+                 ^           ^
+                 strongest at both edges
+```
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```python
+def reorder(docs):                 # docs sorted best-first
+    head, tail = [], []
+    for i, d in enumerate(docs):
+        (head if i % 2 == 0 else tail).append(d)
+    return head + tail[::-1]       # best at both ends, worst in the middle
+```
 
-TODO
+## Remember
 
-## Important concepts
+- Costs nothing — no extra tokens, no extra calls. Pure reordering.
+- Matters more the longer the context; negligible with 3 short chunks.
+- Some pipelines instead put the best chunk **last**, nearest the question.
+  Which wins is model-specific — test it.
+- Keep chunks from the same source adjacent so the model can follow continuity.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [05-lost-in-the-middle](../05-lost-in-the-middle/) · [06-token-budgeting](../06-token-budgeting/)

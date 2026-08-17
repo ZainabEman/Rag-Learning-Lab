@@ -1,6 +1,6 @@
 # Contextual Retrieval
 
-> Section: [Context Engineering](../README.md) | Status: `not started`
+> Section: [Context Engineering](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Prepending chunk-level context (document/section summary) before embedding to fi
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

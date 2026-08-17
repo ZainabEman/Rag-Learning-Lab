@@ -1,80 +1,56 @@
-# Reciprocal Rank Fusion
+# Reciprocal Rank Fusion (RRF)
 
-> Status: `not started` | Section: [Advanced Retrieval](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Advanced Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+An algorithm for merging several ranked lists into one, using **only the
+positions** of the documents — never their scores.
 
-TODO
+```
+RRF(d) = Σ  1 / (k + rank_i(d))          k is usually 60
+        lists i containing d
+```
 
-## Why does it exist?
+## Why it matters
 
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+It solves the central problem of hybrid search: BM25 scores and cosine
+similarities live on incomparable scales, so adding or averaging them is
+meaningless. Ranks are always comparable.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Each list votes for a document with weight `1/(k + rank)`. Rank 1 contributes
+the most, and the contribution decays quickly. Documents appearing in several
+lists accumulate votes and rise to the top.
 
-TODO
+The constant `k` (default 60) dampens the influence of the very top positions,
+so one list cannot dominate outright.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```python
+def rrf(rankings, k=60):
+    scores = {}
+    for ranking in rankings:                      # each is a list of doc ids
+        for rank, doc in enumerate(ranking, start=1):
+            scores[doc] = scores.get(doc, 0) + 1 / (k + rank)
+    return sorted(scores, key=scores.get, reverse=True)
 
-TODO
+bm25  = ["A", "B", "C"]
+dense = ["D", "A", "E"]
+rrf([bm25, dense])        # -> A first: it is the only doc in BOTH lists
+```
 
-## Important concepts
+## Remember
 
-TODO
+- **No score normalisation needed** — that is the whole point.
+- Works for any number of lists: hybrid search, multi-query, multiple retrievers.
+- `k=60` is the standard default from the original paper; rarely worth tuning.
+- It rewards **consensus**. A document ranked mid-table by everyone can beat one
+  ranked first by a single list.
+- It cannot rescue a document that no list retrieved.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [04-hybrid-search](../04-hybrid-search/) · [08-query-transformation/05-rag-fusion](../../08-query-transformation/05-rag-fusion/)

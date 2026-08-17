@@ -1,80 +1,45 @@
 # Semantic Similarity
 
-> Status: `not started` | Section: [Embeddings](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Embeddings](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Measuring how close two pieces of text are **in meaning**, by comparing their
+embedding vectors — not by comparing their words.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+It is the operation every semantic search and RAG retrieval step ultimately
+performs. "Similar" here means *near in vector space*, which is what lets a
+query match a passage that shares no vocabulary with it.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+1. Embed both texts with the **same** model.
+2. Compute a similarity metric between the two vectors (usually cosine).
+3. Higher score = closer in meaning.
 
-TODO
+## Simple example
 
-## Architecture
+```
+"How do I reset my password?"
+"Steps to change your login credentials"     -> high similarity, 0 shared keywords
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+"The bank raised interest rates"
+"I sat on the river bank"                    -> low similarity, 1 shared keyword
+```
 
-TODO
+## Remember
 
-## Important concepts
+- Similarity is **relative, not absolute**. A score of 0.8 means nothing on its
+  own — only the ranking between candidates matters.
+- Embeddings capture topic and paraphrase well; they handle **negation, numbers
+  and named entities poorly**. "not profitable" sits close to "profitable".
+- Query and documents must come from the same embedding model.
+- Semantic similarity ≠ relevance. Two texts can be near in vector space and
+  still not answer one another.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [03-cosine-similarity](../03-cosine-similarity/) · [01-what-are-embeddings](../01-what-are-embeddings/)
+- [05-vector-search/02-similarity-search](../../05-vector-search/02-similarity-search/)

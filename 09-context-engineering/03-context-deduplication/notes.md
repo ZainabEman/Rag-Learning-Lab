@@ -1,80 +1,45 @@
 # Context Deduplication
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Removing near-duplicate chunks from the retrieved set before building the prompt.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Corpora contain repeated content — chunk overlap, copies across documents,
+boilerplate, versioned pages. Retrieval happily returns the same fact five
+times, spending the context budget on one idea and crowding out the others.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+1. Retrieve more than needed (k=20 for a target of 5).
+2. Compare chunks pairwise — exact hash, or embedding similarity above a
+   threshold (~0.95), or text overlap.
+3. Keep the highest-ranked of each duplicate group.
 
-TODO
+## Simple example
 
-## Architecture
+```
+retrieved:
+  1. "Arctic glaciers are melting rapidly due to rising temperatures."
+  2. "Glaciers in the Arctic are melting at an alarming rate."   ← duplicate of 1
+  3. "Deforestation accelerates biodiversity loss."
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+after dedup: 1, 3  → and slot 2 can be refilled with genuinely new content
+```
 
-TODO
+## Remember
 
-## Important concepts
+- **Chunk overlap is a built-in duplicate generator** — adjacent chunks share
+  text by design.
+- Threshold choice matters: too aggressive and you drop genuinely distinct
+  chunks that are merely similar.
+- [MMR](../../06-retrieval/02-mmr/) prevents duplicates *during* retrieval;
+  dedup removes them *after*. They solve the same problem at different stages.
+- Always retrieve extra so removals can be backfilled.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [06-retrieval/02-mmr](../../06-retrieval/02-mmr/) · [03-chunking/04-chunk-overlap](../../03-chunking/04-chunk-overlap/)

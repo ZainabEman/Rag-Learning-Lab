@@ -1,80 +1,53 @@
 # Query Decomposition
 
-> Status: `not started` | Section: [Query Transformation](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Query Transformation](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Breaking a compound question into independent sub-questions, retrieving for each
+separately, then combining the evidence into one answer.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Some questions cannot be answered by any single chunk, because the facts live in
+different documents. A single retrieval pass returns a blend that answers
+neither part well.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+```mermaid
+flowchart LR
+    Q["Compound question"] --> L[LLM]
+    L --> S1[Sub-question 1]
+    L --> S2[Sub-question 2]
+    S1 --> R1[Retrieve]
+    S2 --> R2[Retrieve]
+    R1 --> A["Combine evidence<br/>→ single answer"]
+    R2 --> A
+```
 
-TODO
+## Simple example
 
-## Architecture
+```
+"How does our refund policy compare to our competitor's, and which is faster?"
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+  → "What is our refund policy?"
+  → "What is the competitor's refund policy?"
+  → "What is the processing time for each?"
+```
 
-TODO
+Each sub-question retrieves cleanly; the originals retrieve a muddle.
 
-## Important concepts
+## Remember
 
-TODO
+- Best for **comparison and multi-part** questions ("compare X and Y", "and
+  also...").
+- Costs one LLM call plus one retrieval **per sub-question** — the expensive
+  option in this section.
+- Sub-questions must be genuinely independent; if the second depends on the
+  first's answer, that is iterative retrieval, not decomposition.
+- Deduplicate before assembling context — sub-questions often retrieve overlaps.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [08-sub-question-retrieval](../08-sub-question-retrieval/) · [03-multi-query-retrieval](../03-multi-query-retrieval/)

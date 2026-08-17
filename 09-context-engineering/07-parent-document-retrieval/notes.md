@@ -1,80 +1,49 @@
 # Parent Document Retrieval
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+**Search small, return big.** Index small chunks for precise matching, but when
+one matches, hand the LLM the larger parent block it came from.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+It resolves the core chunk-size conflict: small chunks retrieve accurately but
+lack context; large chunks carry context but retrieve poorly. This gets both.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+```mermaid
+flowchart LR
+    D[Document] --> P["Parent chunks<br/>(large, stored)"]
+    P --> C["Child chunks<br/>(small, embedded)"]
+    Q[Query] --> S["Search child chunks"]
+    C --> S
+    S --> M["Child matched"]
+    M --> R["Return its PARENT"]
+    P --> R
+```
 
-TODO
+Only the children are embedded. The parents live in a document store, looked up
+by id.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```
+child  (200 chars, indexed) : "...the timeout must be set to 30s..."
+parent (2000 chars, returned): the full configuration section, including what
+                               the setting does and what breaks if it is wrong
+```
 
-TODO
+## Remember
 
-## Important concepts
+- Two stores: a vector store for children, a doc store for parents.
+- **Deduplicate parents** — several matching children often share one parent.
+- Parents must be small enough that a few still fit the context window.
+- LangChain implements this as `ParentDocumentRetriever`.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [08-small-to-big-retrieval](../08-small-to-big-retrieval/) — the same idea, generalised
+- [03-chunking/03-chunk-size](../../03-chunking/03-chunk-size/)

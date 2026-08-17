@@ -1,6 +1,6 @@
 # Sparse vs Dense Retrieval
 
-> Section: [Advanced Retrieval](../README.md) | Status: `not started`
+> Section: [Advanced Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Where lexical matching wins (rare terms, IDs, exact phrases) and where dense win
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

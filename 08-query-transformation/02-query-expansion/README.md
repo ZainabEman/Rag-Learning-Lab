@@ -1,6 +1,6 @@
 # Query Expansion
 
-> Section: [Query Transformation](../README.md) | Status: `not started`
+> Section: [Query Transformation](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Adding synonyms, entities and related terms to improve lexical and dense recall.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

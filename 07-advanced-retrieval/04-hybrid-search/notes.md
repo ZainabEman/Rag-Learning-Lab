@@ -1,80 +1,56 @@
 # Hybrid Search
 
-> Status: `not started` | Section: [Advanced Retrieval](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Advanced Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Running sparse (BM25) and dense (vector) retrieval on the same query and
+combining their result lists.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+The two methods fail on different queries. Combining them covers both, and
+usually beats either alone — one of the highest value-per-effort upgrades to a
+basic RAG pipeline.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+```mermaid
+flowchart LR
+    Q[Query] --> S["BM25<br/>(sparse)"]
+    Q --> D["Vector search<br/>(dense)"]
+    S --> F["Fuse the two<br/>ranked lists"]
+    D --> F
+    F --> T[Final top-k]
+```
 
-TODO
+Two ways to fuse:
 
-## Architecture
+1. **Score-based** — normalise both score sets and take a weighted sum.
+   Fragile: the score scales are completely different and unstable.
+2. **Rank-based** — ignore scores, use positions only. This is
+   [RRF](../05-reciprocal-rank-fusion/), and it is the usual choice.
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+## Simple example
 
-TODO
+```
+query: "reset 2FA on my account"
 
-## Important concepts
+BM25 top 3      : [doc_2FA_setup, doc_password_reset, doc_login_errors]
+Dense top 3     : [doc_account_recovery, doc_2FA_setup, doc_security_faq]
+Fused (RRF)     : [doc_2FA_setup, doc_account_recovery, doc_password_reset, ...]
+```
 
-TODO
+`doc_2FA_setup` ranks first because it appears high in *both* lists.
 
-## Mathematical intuition
+## Remember
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+- Fusing by **rank is more robust than fusing by score** — BM25 and cosine
+  scores are not comparable quantities.
+- You now maintain two indexes and pay two lookups per query.
+- A weighting knob (how much to trust each side) is corpus-specific — measure it.
+- Documents appearing in both lists get a strong, well-earned boost.
 
-TODO
+## Related
 
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [02-bm25](../02-bm25/) · [03-sparse-vs-dense](../03-sparse-vs-dense/) · [05-reciprocal-rank-fusion](../05-reciprocal-rank-fusion/)

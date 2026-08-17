@@ -1,6 +1,6 @@
 # Context Deduplication
 
-> Section: [Context Engineering](../README.md) | Status: `not started`
+> Section: [Context Engineering](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Detecting near-duplicate chunks so the budget is not spent on the same sentence 
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

@@ -1,6 +1,6 @@
 # Query Rewriting
 
-> Section: [Query Transformation](../README.md) | Status: `not started`
+> Section: [Query Transformation](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Rewriting vague or under-specified questions into retrieval-friendly queries.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

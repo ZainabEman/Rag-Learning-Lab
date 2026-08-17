@@ -1,80 +1,45 @@
 # Query Expansion
 
-> Status: `not started` | Section: [Query Transformation](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Query Transformation](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Adding extra terms — synonyms, related concepts, spelled-out acronyms — to the
+query so it matches more of the relevant documents.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Vocabulary mismatch is a core retrieval failure: the user says "car", the
+document says "vehicle". Expansion widens the net, which mainly helps **recall**.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Two flavours:
 
-TODO
+- **Lexical** — append synonyms and morphological variants. Helps sparse
+  retrieval most.
+- **LLM-based** — ask a model for related terms or an expanded phrasing.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```
+original : "EV range"
+expanded : "EV range electric vehicle battery range miles per charge autonomy"
+```
 
-TODO
+For BM25 this is a large gain; for dense retrieval a modest one, since
+embeddings already handle some synonymy.
 
-## Important concepts
+## Remember
 
-TODO
+- Expansion raises recall and can **lower precision** — extra terms drag in
+  loosely related documents.
+- **Query drift** is the main risk: expand too aggressively and the query stops
+  meaning what the user asked.
+- Helps sparse retrieval far more than dense.
+- Expansion adds terms; [rewriting](../01-query-rewriting/) replaces the query;
+  [multi-query](../03-multi-query-retrieval/) issues several.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-query-rewriting](../01-query-rewriting/) · [07-advanced-retrieval/02-bm25](../../07-advanced-retrieval/02-bm25/)

@@ -1,6 +1,6 @@
 # HyDE (Hypothetical Document Embeddings)
 
-> Section: [Query Transformation](../README.md) | Status: `not started`
+> Section: [Query Transformation](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Embedding a generated hypothetical answer instead of the raw question; when this
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

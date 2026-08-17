@@ -11,8 +11,8 @@ Per-topic tracking. A topic with nothing ticked is **not started**.
 
 Tick the parent box only when all four sub-boxes are ticked.
 
-**Total topics: 169** | Started: 18 | Completed: 0
-_Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
+**Total topics: 169** | Started: 40 | Completed: 0
+_Last updated: 2026-08-18 (self-studied topics documented)_
 
 ---
 
@@ -95,20 +95,20 @@ _Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
 ### [04-embeddings](04-embeddings/)
 
 - [ ] [What Are Embeddings](04-embeddings/01-what-are-embeddings/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Semantic Similarity](04-embeddings/02-semantic-similarity/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Cosine Similarity](04-embeddings/03-cosine-similarity/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Embedding Models](04-embeddings/04-embedding-models/)
   - [ ] Studied
   - [ ] Implemented
@@ -168,10 +168,10 @@ _Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
   - [ ] Experimented
   - [x] Documented
 - [ ] [Reranking Basics](06-retrieval/04-reranking-basics/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 
 ## Advanced Retrieval
 
@@ -183,25 +183,25 @@ _Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
   - [ ] Experimented
   - [ ] Documented
 - [ ] [BM25](07-advanced-retrieval/02-bm25/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Sparse vs Dense Retrieval](07-advanced-retrieval/03-sparse-vs-dense/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Hybrid Search](07-advanced-retrieval/04-hybrid-search/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Reciprocal Rank Fusion](07-advanced-retrieval/05-reciprocal-rank-fusion/)
-  - [ ] Studied
-  - [ ] Implemented
+  - [x] Studied
+  - [x] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Approximate Nearest Neighbour](07-advanced-retrieval/06-ann/)
   - [ ] Studied
   - [ ] Implemented
@@ -223,10 +223,10 @@ _Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
   - [ ] Experimented
   - [ ] Documented
 - [ ] [Cross-Encoder Reranking](07-advanced-retrieval/10-cross-encoder-reranking/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [ColBERT](07-advanced-retrieval/11-colbert/)
   - [ ] Studied
   - [ ] Implemented
@@ -243,40 +243,40 @@ _Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
 ### [08-query-transformation](08-query-transformation/)
 
 - [ ] [Query Rewriting](08-query-transformation/01-query-rewriting/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Query Expansion](08-query-transformation/02-query-expansion/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Multi-Query Retrieval](08-query-transformation/03-multi-query-retrieval/)
   - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
   - [x] Documented
 - [ ] [Query Decomposition](08-query-transformation/04-query-decomposition/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [RAG Fusion](08-query-transformation/05-rag-fusion/)
   - [ ] Studied
   - [ ] Implemented
   - [ ] Experimented
   - [ ] Documented
 - [ ] [HyDE (Hypothetical Document Embeddings)](08-query-transformation/06-hyde/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Step-Back Prompting](08-query-transformation/07-step-back-prompting/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Sub-Question Retrieval](08-query-transformation/08-sub-question-retrieval/)
   - [ ] Studied
   - [ ] Implemented
@@ -293,50 +293,50 @@ _Last updated: 2026-08-18 (after vector stores, retrievers, end-to-end RAG)_
 ### [09-context-engineering](09-context-engineering/)
 
 - [ ] [Contextual Retrieval](09-context-engineering/01-contextual-retrieval/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Context Compression](09-context-engineering/02-context-compression/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Context Deduplication](09-context-engineering/03-context-deduplication/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Context Ordering](09-context-engineering/04-context-ordering/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Lost in the Middle](09-context-engineering/05-lost-in-the-middle/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Token Budgeting](09-context-engineering/06-token-budgeting/)
   - [ ] Studied
   - [ ] Implemented
   - [ ] Experimented
   - [ ] Documented
 - [ ] [Parent Document Retrieval](09-context-engineering/07-parent-document-retrieval/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Small-to-Big Retrieval](09-context-engineering/08-small-to-big-retrieval/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 - [ ] [Hierarchical Retrieval](09-context-engineering/09-hierarchical-retrieval/)
-  - [ ] Studied
+  - [x] Studied
   - [ ] Implemented
   - [ ] Experimented
-  - [ ] Documented
+  - [x] Documented
 
 ## Advanced RAG
 

@@ -1,80 +1,59 @@
 # Cosine Similarity
 
-> Status: `not started` | Section: [Embeddings](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Embeddings](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+The standard metric for comparing embeddings: the cosine of the angle between
+two vectors.
 
-TODO
+```
+cos(u, v) = (u · v) / (||u|| · ||v||)
+```
 
-## Why does it exist?
+Range −1 to 1 (in practice 0 to 1 for text embeddings). 1 = same direction.
 
-<!-- What existed before this, and what was wrong with it? -->
+## Why it matters
 
-TODO
-
-## Problem it solves
-
-TODO
+It measures **direction, not magnitude**. Two documents about the same topic
+should score as similar whether one is a sentence and the other three
+paragraphs — and cosine ignores that length difference, while Euclidean distance
+does not.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+The dot product measures alignment; dividing by both norms removes length.
 
-TODO
+Useful shortcut: if vectors are **normalised to unit length**, cosine similarity
+and dot product are identical — which is why most vector stores normalise on
+insert and then use the cheaper dot product.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```python
+import math
 
-TODO
+def cosine(u, v):
+    dot = sum(a * b for a, b in zip(u, v))
+    nu = math.sqrt(sum(a * a for a in u))
+    nv = math.sqrt(sum(b * b for b in v))
+    return dot / (nu * nv)
 
-## Important concepts
+cosine([1, 0, 1], [1, 0, 1])   # 1.0  - identical direction
+cosine([1, 0, 1], [2, 0, 2])   # 1.0  - same direction, different magnitude
+cosine([1, 0, 0], [0, 1, 0])   # 0.0  - orthogonal
+```
 
-TODO
+## Remember
 
-## Mathematical intuition
+- Cosine ignores magnitude; Euclidean does not. For text, ignoring it is
+  usually what you want.
+- On normalised vectors, cosine == dot product. Vector stores exploit this.
+- Many stores report **distance** (`1 − cosine`), so **lower is better** there.
+  Always check which one an API returns.
+- A high cosine score between unrelated short texts is common — short vectors
+  are noisy.
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+## Related
 
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [02-semantic-similarity](../02-semantic-similarity/) · [05-vector-search/02-similarity-search](../../05-vector-search/02-similarity-search/)

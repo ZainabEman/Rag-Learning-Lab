@@ -1,80 +1,46 @@
 # Contextual Retrieval
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Before embedding a chunk, prepend a short generated description of where it came
+from and what it is about — so the chunk carries its own context.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Chunks lose their surroundings. A chunk reading "It rose 12% year over year" is
+unretrievable and unusable: no reader, human or model, can tell what "it" is.
+Roughly the most common silent failure in naive RAG.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+For each chunk, an LLM writes 1–2 sentences situating it inside its parent
+document. That context is prepended to the chunk text **before embedding**, and
+usually stored with it.
 
-TODO
+## Simple example
 
-## Architecture
+```
+raw chunk:
+  "It rose 12% year over year, driven mainly by the enterprise segment."
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+contextualised chunk:
+  "From Acme Corp's 2024 annual report, revenue section:
+   It rose 12% year over year, driven mainly by the enterprise segment."
+```
 
-TODO
+Now a query about "Acme revenue growth 2024" can actually find it.
 
-## Important concepts
+## Remember
 
-TODO
+- Costs **one LLM call per chunk at ingestion** — expensive once, free at query
+  time. Prompt caching makes this much cheaper.
+- Fixes pronouns and implicit subjects, which is where most orphaned chunks come
+  from.
+- Combines well with BM25: the added context supplies keywords too.
+- Ingestion-time fix, so changing the strategy means re-indexing everything.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [07-parent-document-retrieval](../07-parent-document-retrieval/) · [03-chunking](../../03-chunking/)

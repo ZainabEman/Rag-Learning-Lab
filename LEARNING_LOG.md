@@ -23,6 +23,56 @@ Copy this template for each entry:
 
 ---
 
+## 2026-08-18 - Self-studied topics written up
+
+Documented the RAG topics I'd already learned outside the course, so the repo
+reflects what I actually know rather than only what the playlist covered.
+
+### Learned
+
+Written up as short reference notes (definition / why / how / example /
+key points), not deep dives:
+
+- **Embeddings** — semantic similarity, cosine similarity.
+- **Advanced retrieval** — BM25, sparse vs dense, hybrid search, RRF,
+  cross-encoder reranking, reranking basics.
+- **Query transformation** — rewriting, expansion, decomposition, HyDE,
+  step-back.
+- **Context engineering** — contextual retrieval, compression, deduplication,
+  ordering, lost-in-the-middle, parent-document, small-to-big, hierarchical.
+
+### Implemented
+
+- [BM25](07-advanced-retrieval/02-bm25/implementation.py) — the formula from
+  scratch, showing IDF and TF saturation.
+- [RRF](07-advanced-retrieval/05-reciprocal-rank-fusion/implementation.py) —
+  rank fusion in ~10 lines.
+
+### Ideas that connected things
+
+- **Sparse and dense fail in opposite directions**, which is the entire case for
+  hybrid search — and hybrid search needs RRF because BM25 scores and cosine
+  scores are not comparable numbers.
+- **Lost-in-the-middle is the reason** reranking, compression and ordering all
+  exist. They are three answers to one finding.
+- **Small-to-big is the general pattern** behind parent-document retrieval,
+  sentence-window and summary indexes: match on a small unit, read a large one.
+- TF saturation is what separates BM25 from naive TF-IDF — 50 occurrences are
+  worth barely more than 10.
+
+### Still unclear
+
+- Whether hybrid search beats dense-only on *my* data — untested.
+- Good default for reranking depth (retrieve 20? 50?).
+
+### Next step
+
+- These are notes from reading, not from building. Most are marked studied +
+  documented but **not implemented or experimented** — the experiments in
+  [experiments/](experiments/) are where they'd get tested.
+
+---
+
 ## 2026-08-18 - Vector stores, retrievers, and a working RAG system
 
 Three videos: the last two RAG components, then the end-to-end build.

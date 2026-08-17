@@ -1,80 +1,44 @@
 # Step-Back Prompting
 
-> Status: `not started` | Section: [Query Transformation](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Query Transformation](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Generate a **more general** version of the question, retrieve for that too, and
+use both sets of context.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Very specific questions often need background the corpus states only in general
+terms. Retrieving on the specific query alone misses the principle that
+actually explains the answer.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Query → LLM ("what more general question would help answer this?") → retrieve
+for both the original and the step-back question → merge context → answer.
 
-TODO
+## Simple example
 
-## Architecture
+```
+specific : "why did our p99 latency spike at 14:32 after the deploy?"
+step-back: "what causes latency spikes after a deployment?"
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+specific retrieval  → the incident log for that timestamp
+step-back retrieval → the doc on cold starts and connection-pool warm-up
+```
 
-TODO
+The second one contains the actual explanation.
 
-## Important concepts
+## Remember
 
-TODO
+- Use **both** queries — the step-back one alone loses the specifics.
+- Works best for "why" and reasoning questions; adds little to simple lookups.
+- Related to [decomposition](../04-query-decomposition/), but goes *up* a level
+  of abstraction rather than sideways into parts.
+- Costs one extra LLM call and one extra retrieval.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [04-query-decomposition](../04-query-decomposition/) · [06-hyde](../06-hyde/)
+- Paper: [PAPERS.md](../../PAPERS.md) (arXiv:2310.06117)

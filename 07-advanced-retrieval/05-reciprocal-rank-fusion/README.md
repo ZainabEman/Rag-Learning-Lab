@@ -1,6 +1,6 @@
 # Reciprocal Rank Fusion
 
-> Section: [Advanced Retrieval](../README.md) | Status: `not started`
+> Section: [Advanced Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Rank-based fusion that avoids score normalisation entirely; implementing RRF fro
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

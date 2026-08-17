@@ -8,15 +8,15 @@ What actually reaches the model: how much, in what order, and with what surround
 
 | # | Topic | What it covers | Status |
 | --- | --- | --- | --- |
-| 01 | [Contextual Retrieval](01-contextual-retrieval/) | Prepending chunk-level context (document/section summary) before embedding to fix orphaned chunks. | `not started` |
-| 02 | [Context Compression](02-context-compression/) | Extractive and abstractive compression of retrieved context under a token budget. | `not started` |
-| 03 | [Context Deduplication](03-context-deduplication/) | Detecting near-duplicate chunks so the budget is not spent on the same sentence three times. | `not started` |
-| 04 | [Context Ordering](04-context-ordering/) | How placement of the relevant chunk in the prompt changes answer quality. | `not started` |
-| 05 | [Lost in the Middle](05-lost-in-the-middle/) | Reproducing the positional-attention effect on a small controlled set. | `not started` |
+| 01 | [Contextual Retrieval](01-contextual-retrieval/) | Prepending chunk-level context (document/section summary) before embedding to fix orphaned chunks. | `studied` |
+| 02 | [Context Compression](02-context-compression/) | Extractive and abstractive compression of retrieved context under a token budget. | `studied` |
+| 03 | [Context Deduplication](03-context-deduplication/) | Detecting near-duplicate chunks so the budget is not spent on the same sentence three times. | `studied` |
+| 04 | [Context Ordering](04-context-ordering/) | How placement of the relevant chunk in the prompt changes answer quality. | `studied` |
+| 05 | [Lost in the Middle](05-lost-in-the-middle/) | Reproducing the positional-attention effect on a small controlled set. | `studied` |
 | 06 | [Token Budgeting](06-token-budgeting/) | Allocating a fixed context window across system prompt, history, retrieved context and answer. | `not started` |
-| 07 | [Parent Document Retrieval](07-parent-document-retrieval/) | Indexing small chunks for precision but returning the parent block for context. | `not started` |
-| 08 | [Small-to-Big Retrieval](08-small-to-big-retrieval/) | Sentence-window and expanding-window retrieval variants. | `not started` |
-| 09 | [Hierarchical Retrieval](09-hierarchical-retrieval/) | Summary-level retrieval that routes down to detail-level chunks. | `not started` |
+| 07 | [Parent Document Retrieval](07-parent-document-retrieval/) | Indexing small chunks for precision but returning the parent block for context. | `studied` |
+| 08 | [Small-to-Big Retrieval](08-small-to-big-retrieval/) | Sentence-window and expanding-window retrieval variants. | `studied` |
+| 09 | [Hierarchical Retrieval](09-hierarchical-retrieval/) | Summary-level retrieval that routes down to detail-level chunks. | `studied` |
 
 ## How to work through this section
 

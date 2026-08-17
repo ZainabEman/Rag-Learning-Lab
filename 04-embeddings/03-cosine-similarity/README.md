@@ -1,6 +1,6 @@
 # Cosine Similarity
 
-> Section: [Embeddings](../README.md) | Status: `not started`
+> Section: [Embeddings](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Cosine, dot product and Euclidean distance from scratch with numpy; why normalis
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

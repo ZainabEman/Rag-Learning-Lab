@@ -1,6 +1,6 @@
 # Context Ordering
 
-> Section: [Context Engineering](../README.md) | Status: `not started`
+> Section: [Context Engineering](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ How placement of the relevant chunk in the prompt changes answer quality.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

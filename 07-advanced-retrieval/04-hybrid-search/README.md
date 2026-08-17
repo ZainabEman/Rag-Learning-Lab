@@ -1,6 +1,6 @@
 # Hybrid Search
 
-> Section: [Advanced Retrieval](../README.md) | Status: `not started`
+> Section: [Advanced Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Combining sparse and dense results; score normalisation and weighted fusion.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

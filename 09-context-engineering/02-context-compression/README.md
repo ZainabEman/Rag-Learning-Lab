@@ -1,6 +1,6 @@
 # Context Compression
 
-> Section: [Context Engineering](../README.md) | Status: `not started`
+> Section: [Context Engineering](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Extractive and abstractive compression of retrieved context under a token budget
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

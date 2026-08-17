@@ -1,80 +1,51 @@
 # Cross-Encoder Reranking
 
-> Status: `not started` | Section: [Advanced Retrieval](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Advanced Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Reranking with a model that reads the **query and document together** in one
+forward pass and outputs a single relevance score.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+It is substantially more accurate than vector similarity, because the model can
+attend across both texts at once instead of comparing two summaries produced in
+isolation.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+| | **Bi-encoder** (normal retrieval) | **Cross-encoder** (reranking) |
+| --- | --- | --- |
+| Input | Query and doc encoded separately | Query + doc encoded **together** |
+| Output | Two vectors, compared by cosine | One relevance score |
+| Precompute | Documents embedded in advance | Nothing — must run per pair |
+| Cost | O(1) per query after indexing | **One model call per candidate** |
+| Accuracy | Good | Better |
 
-TODO
+That cost line is why cross-encoders cannot search a corpus: scoring 1M
+documents means 1M forward passes. They only ever rerank a shortlist.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```python
+from sentence_transformers import CrossEncoder
 
-TODO
+model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+pairs = [(query, doc.page_content) for doc in candidates]
+scores = model.predict(pairs)
+top = [d for _, d in sorted(zip(scores, candidates), reverse=True)][:5]
+```
 
-## Important concepts
+## Remember
 
-TODO
+- Cross-encoders **rerank, never retrieve**. Always pair with a fast first stage.
+- Typical shape: retrieve 50 → rerank → keep 5.
+- Latency is the real constraint; batch the pairs.
+- Hosted rerank APIs (e.g. Cohere Rerank) do the same job without self-hosting.
+- ColBERT sits in between — token-level vectors, precomputable, cheaper than a
+  full cross-encoder.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [06-retrieval/04-reranking-basics](../../06-retrieval/04-reranking-basics/) · [11-colbert](../11-colbert/)

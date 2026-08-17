@@ -1,8 +1,7 @@
 # What Are Embeddings
 
-> Status: `overview only` — seeded from the RAG architecture lesson, where
-> embeddings appear as step 3 of indexing. The dedicated embeddings lesson has
-> not been studied yet, so the sections below "Problem it solves" are still open.
+> Status: `studied` — originally seeded from the RAG architecture lesson, then
+> filled in from self-study.
 >
 > Section: [Embeddings](../README.md)
 
@@ -40,6 +39,36 @@ embedding theory:
 Models named so far: OpenAI embeddings (hosted API) and sentence-transformers
 (runs locally). Comparing them properly is
 [04-embedding-models](../04-embedding-models/).
+
+## How it works
+
+A neural model (usually a transformer encoder) reads the text and outputs a
+fixed-length vector — typically 384, 768 or 1536 dimensions. Training pushes
+texts with similar meaning close together and dissimilar ones apart, so
+*position* in the space encodes meaning.
+
+Individual dimensions are **not** interpretable. There is no "sentiment axis";
+only relative distances mean anything.
+
+## Simple example
+
+```
+embed("How do I reset my password?")  -> [0.021, -0.118, 0.334, ... ]  (1536 floats)
+embed("Steps to change your login")   -> [0.019, -0.101, 0.341, ... ]  ← nearby
+embed("Best pizza in Naples")         -> [-0.44,  0.203, -0.02, ... ]  ← far away
+```
+
+## Remember
+
+- **Fixed length regardless of input size.** A sentence and a page both become
+  the same-sized vector — which is why long chunks embed poorly: more meaning
+  compressed into the same space.
+- Dimensions are meaningless individually; only distances matter.
+- Same model on both sides, always. Changing the model = re-embedding everything.
+- Embeddings are **not reversible** — you cannot recover text from a vector,
+  which is why the chunk text is stored alongside it.
+- Weak on negation, numbers and exact identifiers. That is what
+  [BM25](../../07-advanced-retrieval/02-bm25/) is for.
 
 ## Problem it solves
 

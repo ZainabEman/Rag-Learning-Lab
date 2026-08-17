@@ -1,6 +1,6 @@
 # Cross-Encoder Reranking
 
-> Section: [Advanced Retrieval](../README.md) | Status: `not started`
+> Section: [Advanced Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Joint query-document encoding: why it is more accurate than bi-encoders and why 
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

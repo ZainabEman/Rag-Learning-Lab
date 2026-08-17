@@ -1,80 +1,56 @@
 # Reranking Basics
 
-> Status: `not started` | Section: [Retrieval](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+A **second scoring pass** over the documents that first-stage retrieval
+returned, using a slower but more accurate model to reorder them.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+First-stage retrieval optimises for speed over a huge corpus, so its ranking is
+rough. Reranking fixes the ordering of the few candidates that actually reach
+the prompt — and since the LLM only sees the top few, ordering is what decides
+the answer.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+The **retrieve-many / rerank-few** pattern:
 
-TODO
+```mermaid
+flowchart LR
+    Q[Query] --> R["Retriever<br/>fast, approximate"]
+    R --> C["top 50 candidates"]
+    C --> RR["Reranker<br/>slow, accurate"]
+    RR --> T["top 5 → prompt"]
+```
 
-## Architecture
+Retrieve wide (k=50), rerank down to what fits (k=5). The reranker sees query
+and document *together*, so it can judge relevance far better than comparing two
+independently-computed vectors.
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+## Simple example
 
-TODO
+```
+query: "how do I cancel my subscription?"
 
-## Important concepts
+after retrieval (by vector similarity)   after reranking
+1. subscription pricing tiers            1. cancelling your subscription
+2. cancelling your subscription          2. refund policy after cancellation
+3. how to subscribe                      3. subscription pricing tiers
+```
 
-TODO
+## Remember
 
-## Mathematical intuition
+- Reranking **cannot recover a document retrieval missed**. It only reorders
+  what it was given, so first-stage recall still sets the ceiling.
+- It costs latency — a model call per candidate. Rerank 20–50, not 1000.
+- Biggest wins come when the corpus has many near-duplicates or the query is
+  phrased unlike the documents.
+- Common implementations: cross-encoder models, or hosted rerank APIs.
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+## Related
 
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [07-advanced-retrieval/10-cross-encoder-reranking](../../07-advanced-retrieval/10-cross-encoder-reranking/) — how it works internally
+- [01-semantic-retrieval](../01-semantic-retrieval/) · [02-mmr](../02-mmr/)

@@ -1,6 +1,6 @@
 # Semantic Similarity
 
-> Section: [Embeddings](../README.md) | Status: `not started`
+> Section: [Embeddings](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ What embedding similarity captures (topic, paraphrase) and what it misses (negat
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

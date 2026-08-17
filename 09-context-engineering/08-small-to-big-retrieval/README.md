@@ -1,6 +1,6 @@
 # Small-to-Big Retrieval
 
-> Section: [Context Engineering](../README.md) | Status: `not started`
+> Section: [Context Engineering](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Sentence-window and expanding-window retrieval variants.
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

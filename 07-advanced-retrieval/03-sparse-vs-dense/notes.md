@@ -1,80 +1,51 @@
 # Sparse vs Dense Retrieval
 
-> Status: `not started` | Section: [Advanced Retrieval](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Advanced Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+The two families of retrieval:
 
-TODO
+| | **Sparse** | **Dense** |
+| --- | --- | --- |
+| Vector | One dimension per vocabulary word, mostly zeros | Few hundred/thousand dims, all non-zero |
+| Built by | Counting (TF-IDF, BM25) | A neural embedding model |
+| Matches on | Exact terms | Meaning |
 
-## Why does it exist?
+## Why it matters
 
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+They fail in *opposite* ways. Knowing which failure you are looking at tells you
+which fix to apply — and explains why combining them works so well.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+- **Sparse**: an inverted index maps each term to the documents containing it.
+  Scoring is term overlap, weighted by rarity and length.
+- **Dense**: both query and documents become vectors; retrieval is
+  nearest-neighbour search in that space.
 
-TODO
+## Simple example
 
-## Architecture
+```
+query: "how to fix error 502"
+  sparse  ✅ finds the doc containing literally "502"
+  dense   ❌ may drift to general "server problems" content
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+query: "my subscription auto-renewed and I want my money back"
+  sparse  ❌ no keyword overlap with "refund policy"
+  dense   ✅ matches on meaning
+```
 
-TODO
+## Remember
 
-## Important concepts
+- **Sparse wins** on rare terms, IDs, codes, names, exact phrases.
+- **Dense wins** on paraphrase, synonyms, intent, natural questions.
+- Dense retrieval needs a model and an index build; sparse needs neither.
+- Dense quality is bounded by the embedding model's domain knowledge — a
+  general model on medical or legal text underperforms badly.
+- The practical answer is usually not to choose: see
+  [04-hybrid-search](../04-hybrid-search/).
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [02-bm25](../02-bm25/) · [04-hybrid-search](../04-hybrid-search/)

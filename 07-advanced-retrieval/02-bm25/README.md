@@ -1,6 +1,6 @@
 # BM25
 
-> Section: [Advanced Retrieval](../README.md) | Status: `not started`
+> Section: [Advanced Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ The Okapi BM25 scoring function implemented by hand, then via rank_bm25; the rol
 
 ## Checklist
 
-- [ ] Studied
-- [ ] Implemented
+- [x] Studied
+- [x] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

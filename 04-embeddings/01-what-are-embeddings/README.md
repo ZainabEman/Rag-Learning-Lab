@@ -1,6 +1,6 @@
 # What Are Embeddings
 
-> Section: [Embeddings](../README.md) | Status: `overview only`
+> Section: [Embeddings](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Vectors as learned representations: dimensionality, what the axes do and do not 
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

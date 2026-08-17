@@ -1,6 +1,6 @@
 # Step-Back Prompting
 
-> Section: [Query Transformation](../README.md) | Status: `not started`
+> Section: [Query Transformation](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Asking a more general question first to retrieve the background a specific quest
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

@@ -1,80 +1,56 @@
 # BM25
 
-> Status: `not started` | Section: [Advanced Retrieval](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Advanced Retrieval](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+The standard **lexical** (keyword) ranking function. Scores a document by how
+often the query's terms appear in it, adjusted for term rarity and document
+length.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Dense embeddings are bad at exact matches — product codes, error numbers, names,
+rare technical terms. BM25 is excellent at exactly those, which is why it is
+still used in 2026 and why hybrid search exists.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+For each query term, BM25 combines three signals:
 
-TODO
+| Signal | Effect |
+| --- | --- |
+| **Term frequency (TF)** | More occurrences → higher score, but with *saturation* — the 10th occurrence adds far less than the 2nd |
+| **Inverse document frequency (IDF)** | Rare terms across the corpus count for more |
+| **Length normalisation** | Long documents don't win just by being long |
 
-## Architecture
+Two knobs: `k1` controls TF saturation (typ. 1.2–2.0), `b` controls length
+normalisation (typ. 0.75).
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+## Simple example
 
-TODO
+```python
+from rank_bm25 import BM25Okapi
 
-## Important concepts
+corpus = [
+    "the cat sat on the mat".split(),
+    "error code 502 means bad gateway".split(),
+    "dogs are loyal animals".split(),
+]
+bm25 = BM25Okapi(corpus)
+bm25.get_scores("error code 502".split())   # doc 2 scores far above the rest
+```
 
-TODO
+A dense retriever often struggles with "502" — BM25 nails it.
 
-## Mathematical intuition
+## Remember
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+- **TF saturation is the key idea** over naive TF-IDF: repeating a word 50 times
+  does not make a document 50× more relevant.
+- BM25 cannot match paraphrases. "car" never matches "automobile".
+- It needs no training, no embeddings and no GPU — it is fast and cheap.
+- Still a strong baseline; many "advanced" systems fail to beat BM25 alone.
 
-TODO
+## Related
 
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-tf-idf](../01-tf-idf/) · [03-sparse-vs-dense](../03-sparse-vs-dense/) · [04-hybrid-search](../04-hybrid-search/)

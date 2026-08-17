@@ -1,80 +1,49 @@
 # Hierarchical Retrieval
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Retrieving in **layers**: first find the right document or section using
+summaries, then search for detailed chunks only inside it.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+On large or multi-tenant corpora, flat search over every chunk is both slow and
+noisy — chunks from irrelevant documents compete with the right ones on
+superficial wording. Narrowing first removes them entirely.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+```mermaid
+flowchart TB
+    Q[Query] --> L1["Level 1:<br/>search document summaries"]
+    L1 --> D["Top 2 documents"]
+    D --> L2["Level 2:<br/>search chunks within those only"]
+    L2 --> C[Final chunks]
+```
 
-TODO
+Build time: summarise each document (and optionally each section), and index the
+summaries as their own layer.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```
+query: "what is the vacation carry-over limit?"
 
-TODO
+level 1 → "HR Policy 2024" summary matches   (skips Engineering Handbook,
+                                              Security Policy, ...)
+level 2 → search only HR Policy chunks → the carry-over clause
+```
 
-## Important concepts
+## Remember
 
-TODO
+- Cuts the search space **and** the noise — the main win is precision, not speed.
+- **A level-1 miss is unrecoverable**: pick the wrong document and the right
+  chunk can never be found. Keep level 1 generous (top 3–5, not top 1).
+- Summaries must be regenerated when documents change.
+- Closely related to routing — choosing an index per query.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [08-small-to-big-retrieval](../08-small-to-big-retrieval/) · [10-advanced-rag/06-retrieval-routing](../../10-advanced-rag/06-retrieval-routing/)

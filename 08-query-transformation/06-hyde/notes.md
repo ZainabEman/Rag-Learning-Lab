@@ -1,80 +1,54 @@
 # HyDE (Hypothetical Document Embeddings)
 
-> Status: `not started` | Section: [Query Transformation](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Query Transformation](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Ask an LLM to **invent an answer** to the query, then embed that fake answer and
+use *it* as the search vector instead of the query.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Questions and answers look different. A short question and a long explanatory
+passage sit in different regions of embedding space even when one answers the
+other. A hypothetical answer looks like the documents you are searching for, so
+it lands closer to them.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+```mermaid
+flowchart LR
+    Q[Query] --> L["LLM: write a passage<br/>that answers this"]
+    L --> H["Hypothetical answer<br/>(may be factually wrong)"]
+    H --> E[Embed it]
+    E --> V[(Vector search)]
+    V --> D[Real documents]
+```
 
-TODO
+The generated text does **not** need to be correct. It only needs the right
+shape and vocabulary — it is a search probe, and it is discarded afterwards.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+```
+query : "why is my container OOMKilled?"
 
-TODO
+hypothetical answer (generated):
+  "A container is OOMKilled when it exceeds its memory limit. Kubernetes
+   terminates it with exit code 137. Check resource limits and requests..."
 
-## Important concepts
+→ embed that paragraph → retrieves the real docs on memory limits and exit 137
+```
 
-TODO
+## Remember
 
-## Mathematical intuition
+- The hypothetical answer being **wrong is fine** — it is never shown to the user.
+- Costs one LLM call before retrieval; that is the whole price.
+- Helps most on short/vague queries and technical domains; helps least when the
+  model knows nothing about the domain and hallucinates off-topic vocabulary.
+- Can *hurt* on queries with rare exact terms — the generated text may bury them.
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+## Related
 
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [01-query-rewriting](../01-query-rewriting/) · [07-step-back-prompting](../07-step-back-prompting/)
+- Paper: [PAPERS.md](../../PAPERS.md) (arXiv:2212.10496)

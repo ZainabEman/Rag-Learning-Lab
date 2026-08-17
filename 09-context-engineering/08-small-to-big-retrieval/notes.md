@@ -1,80 +1,49 @@
 # Small-to-Big Retrieval
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+The general pattern behind parent-document retrieval: **match on a small unit,
+expand to a larger one before generation.**
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Retrieval precision and context sufficiency want opposite chunk sizes. Splitting
+the two decisions — one unit for matching, another for reading — removes the
+compromise.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+Three common variants:
 
-TODO
+| Variant | Match on | Return |
+| --- | --- | --- |
+| **Sentence window** | One sentence | That sentence ± N neighbours |
+| **Parent document** | Small child chunk | Its larger parent |
+| **Summary index** | A generated summary | The full underlying document |
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+Sentence-window with a window of 1:
 
-TODO
+```
+matched sentence : "Rollback requires the --force flag."
+returned context : "Deploys are atomic by default.
+                    Rollback requires the --force flag.
+                    Without it the CLI refuses to overwrite a newer release."
+```
 
-## Important concepts
+The matched sentence alone would have been useless.
 
-TODO
+## Remember
 
-## Mathematical intuition
+- Decouples the **matching unit** from the **reading unit** — that is the whole
+  idea.
+- Expansion multiplies tokens; budget for it.
+- Deduplicate after expanding — neighbouring matches produce overlapping windows.
+- Sentence-window suits dense prose; parent-document suits structured docs.
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
+## Related
 
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [07-parent-document-retrieval](../07-parent-document-retrieval/) · [09-hierarchical-retrieval](../09-hierarchical-retrieval/)

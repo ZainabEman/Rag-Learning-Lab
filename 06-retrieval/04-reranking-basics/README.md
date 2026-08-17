@@ -1,6 +1,6 @@
 # Reranking Basics
 
-> Section: [Retrieval](../README.md) | Status: `not started`
+> Section: [Retrieval](../README.md) | Status: `studied`
 
 ## Scope
 
@@ -17,10 +17,10 @@ Why a second-stage scorer beats first-stage similarity, and the retrieve-many/re
 
 ## Checklist
 
-- [ ] Studied
+- [x] Studied
 - [ ] Implemented
 - [ ] Experimented
-- [ ] Documented
+- [x] Documented
 
 ## Notes to self
 

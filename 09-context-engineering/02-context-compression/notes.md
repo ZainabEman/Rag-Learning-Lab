@@ -1,80 +1,49 @@
 # Context Compression
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+Shrinking retrieved context before it reaches the prompt, keeping only what is
+relevant to the query.
 
-TODO
+## Why it matters
 
-## Why does it exist?
-
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+Retrieved chunks are padded with irrelevant text. That padding costs tokens,
+costs money, adds latency, and measurably degrades answer quality by diluting
+the signal.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+| Approach | Method | Trade-off |
+| --- | --- | --- |
+| **Extractive** | Keep only the relevant sentences | Fast, cheap, safe — nothing invented |
+| **Abstractive** | LLM rewrites/summarises the chunk | Higher compression, risks losing detail |
+| **Filtering** | Drop whole chunks below a relevance threshold | Cheapest; coarse |
 
-TODO
+## Simple example
 
-## Architecture
+```
+retrieved (180 tokens):
+  "The Grand Canyon is a famous natural site. Photosynthesis is how plants
+   convert light into energy. Many tourists visit every year..."
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+query: "what is photosynthesis?"
 
-TODO
+compressed (12 tokens):
+  "Photosynthesis is how plants convert light into energy."
+```
 
-## Important concepts
+## Remember
 
-TODO
+- Compression happens **after** retrieval — it cannot recover a missed document.
+- Abstractive compression can drop the one number the user needed. Prefer
+  extractive when facts matter.
+- The LLM-based version costs a call per document; weigh that against the tokens
+  saved.
+- Better chunking reduces how much compression you need in the first place.
 
-## Mathematical intuition
+## Related
 
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [06-retrieval/03-contextual-compression](../../06-retrieval/03-contextual-compression/) — the LangChain implementation
+- [06-token-budgeting](../06-token-budgeting/)

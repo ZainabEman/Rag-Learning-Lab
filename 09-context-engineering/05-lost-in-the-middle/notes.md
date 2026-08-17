@@ -1,80 +1,52 @@
 # Lost in the Middle
 
-> Status: `not started` | Section: [Context Engineering](../README.md)
+> Status: `studied` (self-study, outside the course) | Section: [Context Engineering](../README.md)
 
 ## What is it?
 
-<!-- One paragraph, in my own words. No copy-paste from the course. -->
+The empirical finding that LLMs use information at the **start and end** of a
+long context far more reliably than information in the **middle**.
 
-TODO
+Accuracy plotted against the position of the relevant fact forms a **U-shape**.
 
-## Why does it exist?
+## Why it matters
 
-<!-- What existed before this, and what was wrong with it? -->
-
-TODO
-
-## Problem it solves
-
-TODO
+It breaks the intuitive assumption that a bigger context window is strictly
+better. Stuffing 50 chunks into a prompt can perform *worse* than carefully
+choosing 5, because the answer may land in the dead zone.
 
 ## How it works
 
-<!-- Step by step. If I cannot write the steps, I have not understood it yet. -->
+```
+answer accuracy
+   high │ *                           *
+        │   *                      *
+        │       *      *       *
+   low  │            (middle)
+        └───────────────────────────────
+         first    position of fact    last
+```
 
-TODO
+Attributed to positional attention patterns learned during training —
+recency and primacy both get reinforced.
 
-## Architecture
+## Simple example
 
-<!-- Diagram or ASCII sketch of where this sits in a RAG pipeline. -->
+Same 20 documents, same question. Put the answer-bearing document at position 1
+or 20 → the model answers correctly. Put it at position 10 → accuracy drops
+sharply, sometimes below what the model achieves with *no* context at all.
 
-TODO
+## Remember
 
-## Important concepts
+- **More context is not automatically better.** Precision beats volume.
+- Directly motivates [reranking](../../06-retrieval/04-reranking-basics/),
+  [compression](../02-context-compression/) and
+  [ordering](../04-context-ordering/).
+- The effect is weaker in newer long-context models but has not disappeared.
+- Practical rule: if a chunk is not worth putting near an edge, consider not
+  including it.
 
-TODO
+## Related
 
-## Mathematical intuition
-
-<!-- The formula, what each symbol means, and why the formula has that shape.
-     Skip only if there genuinely is no maths involved. -->
-
-TODO
-
-## Implementation details
-
-<!-- Gotchas found while writing implementation.py. -->
-
-TODO
-
-## What I initially misunderstood
-
-<!-- Be specific and honest. This section is the most valuable one later. -->
-
-TODO
-
-## What I learned
-
-TODO
-
-## Limitations
-
-TODO
-
-## When should I use it?
-
-TODO
-
-## When should I NOT use it?
-
-TODO
-
-## Related concepts
-
-<!-- Relative links to other topic folders in this repo. -->
-
-TODO
-
-## Questions I still have
-
-- TODO
+- [04-context-ordering](../04-context-ordering/) · [06-token-budgeting](../06-token-budgeting/)
+- Paper: [PAPERS.md](../../PAPERS.md) (arXiv:2307.03172)
